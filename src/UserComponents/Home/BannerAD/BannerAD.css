@@ -1,0 +1,19 @@
+.BannerDiv {
+    padding-top: 1rem;
+  }
+.BannerDiv img{
+  width: 100%;
+}
+  
+  /* Media Query for smaller screens */
+  @media (max-width: 768px) {
+    .BannerDiv {
+      padding: 0; /* Remove padding on smaller screens */
+    }
+  
+    .BannerDiv img {
+      width: 100%; /* Make images responsive within their container */
+      height: auto; /* Maintain aspect ratio */
+    }
+  }
+  

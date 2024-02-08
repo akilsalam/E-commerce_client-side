@@ -1,0 +1,95 @@
+/* Common styles */
+.AdminLoginPage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.AdminLoginDiv {
+    background-color: #D9D9D9;
+    width: 50%;
+    border-radius: 15px;
+    padding: 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.logoImg {
+    margin-top: -50px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 0.5rem;
+}
+
+.Inputlabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.Input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.submitBtn,
+.SignUpBtn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.submitBtn:hover,
+.SignUpBtn:hover {
+    background-color: rgb(82, 99, 245);
+}
+
+.SignUpDiv {
+    text-align: center;
+    color: #3498db;
+}
+
+.SignUpBtn {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(82, 99, 245);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.SignUpBtn:hover {
+    background-color: #3498db;
+    
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .LoginPage {
+        flex-direction: column;
+        align-items: stretch;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .BackBtn {
+        margin: 10px auto;
+        position: static;
+    }
+
+    .LoginDiv {
+        width: 80%;
+    }
+
+    .logoImg {
+        margin-top: 0;
+    }
+}

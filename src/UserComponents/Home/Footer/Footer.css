@@ -1,0 +1,68 @@
+body {
+    overflow-x: hidden;
+}
+
+.footerParentDiv {
+    margin-top: 1rem;
+    width: 100vw;
+}
+
+.footerParentDiv .content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #D9D9D9;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.footerParentDiv .content .col-md-3 {
+    flex: 1 1 30%; /* Adjust the width of each column */
+    margin: 10px; /* Add spacing between columns */
+}
+
+.footerParentDiv .content .heading {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+.footerParentDiv .list {
+    list-style: none;
+    padding: 0;
+}
+
+.footerParentDiv .list ul {
+    margin: 0;
+    padding: 0;
+}
+
+.footerParentDiv .footer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    padding: 20px;
+    background: #2B83B5;
+    color: whitesmoke;
+    box-sizing: border-box;
+}
+
+.footerParentDiv .footer p {
+    margin: 0;
+}
+
+/* Media queries for responsiveness */
+@media only screen and (max-width: 768px) {
+    .footerParentDiv .content {
+        padding: 10px;
+    }
+
+    .footerParentDiv .content .col-md-3 {
+        flex: 1 1 100%; /* Full width on small screens */
+    }
+
+    .footerParentDiv .footer {
+        padding: 10px;
+    }
+}
