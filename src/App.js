@@ -13,10 +13,20 @@ import SellerSignUp from './UserComponents/Seller/SignUpPage/SellerSignUp';
 import SellProduct from './UserComponents/Seller/SellProduct/SellProduct';
 import WishList from './UserComponents/WishList/WishList';
 import Categories from './UserComponents/Home/Categories/Categories';
-import View from './UserComponents/View/View';
+import View from './UserComponents/Home/View/View';
 import AdminNavBar from './AdminComponents/AdminNavBar';
 import AdminHome from './AdminComponents/AdminHome'
 import AdminLogin from './AdminComponents/AdminLogin';
+import Products from './AdminComponents/Products/Products';
+import Users from './AdminComponents/Users/Users';
+import AddUser from './AdminComponents/Users/AddUser';
+import EditUser from './AdminComponents/Users/EditUser';
+import EditProduct from './AdminComponents/Products/EditProduct';
+import AddProduct from './AdminComponents/Products/AddProducts';
+import Profile from './UserComponents/Profile/Profile';
+import NotFound from './NotFound';
+import Orders from './AdminComponents/Orders/Orders';
+
 
 function App() {
   return (
@@ -39,6 +49,7 @@ function App() {
                   <Route path="/sellerSignUp" element={<SellerSignUp />} />
                   <Route path="/sellProduct" element={<SellProduct />} />
                   <Route path="/wishList" element={<WishList />} />
+                  <Route path='/profile' element={<Profile/>}/>
                   <Route path='/Groceries' element={<Categories url="http://localhost:3000/groceries" title='Groceries' />} />
                   <Route path='/Mobiles' element={<Categories url="http://localhost:3000/smartphones" title='Mobiles' />} />
                   <Route path='/Fashions' element={<Categories url='http://localhost:3000/fashions' title='Fashions' />} />
@@ -47,19 +58,20 @@ function App() {
                   <Route path='/Appliances' element={<Categories url="http://localhost:3000/appliances" title='Appliances' />} />
                   <Route path='/Beauty' element={<Categories url="http://localhost:3000/beautyToys" title='Beauty' />} />
                   <Route path='/TwoWheelers' element={<Categories url="http://localhost:3000/two-wheelers" title='TwoWheelers' />} />
-                  <Route path='/Clothes' element={<Categories url="https://dummyjson.com/products/category/mens-shirts" title='Clothes' />} />
-                  <Route path='/Footwears' element={<Categories url="https://dummyjson.com/products/category/mens-shoes" title='Footwear' />} />
-                  <Route path='/Watches' element={<Categories url="https://dummyjson.com/products/category/mens-watches" title='Watches' />} />
-                  <Route path='/Bags' element={<Categories url="https://dummyjson.com/products/category/womens-bags" title='Bags & Wallets' />} />
-                  <Route path='/WomenWatches' element={<Categories url="https://dummyjson.com/products/category/womens-watches" title='Watches' />} />
-                  <Route path='/WomenShoes' element={<Categories url="https://dummyjson.com/products/category/womens-shoes" title='Footwears' />} />
-                  <Route path='/WomenJewellery' element={<Categories url="https://dummyjson.com/products/category/womens-jewellery" title='Jewelleries' />} />
-                  <Route path='/Tops' element={<Categories url="https://dummyjson.com/products/category/tops" title='Tops' />} />
-                  <Route path='/Automotive' element={<Categories url="https://dummyjson.com/products/category/automotive" title='Automotive' />} />
-                  <Route path='/Lights' element={<Categories url="https://dummyjson.com/products/category/lighting" title='Lights' />} />
-                  <Route path='/Sunglasses' element={<Categories url="https://dummyjson.com/products/category/sunglasses" title='Sunglasses' />} />
-                  <Route path='/Fragrances' element={<Categories url="https://dummyjson.com/products/category/fragrances" title='Fragrances' />} />
+                  <Route path='/Clothes' element={<Categories url="http://localhost:3000/mens-clothes" title='Clothes' />} />
+                  <Route path='/Footwears' element={<Categories url="http://localhost:3000/mens-footwears" title='Footwear' />} />
+                  <Route path='/Watches' element={<Categories url="http://localhost:3000/mens-watches" title='Watches' />} />
+                  <Route path='/Bags' element={<Categories url="http://localhost:3000/bags" title='Bags & Wallets' />} />
+                  <Route path='/WomenWatches' element={<Categories url="http://localhost:3000/women-watches" title='Watches' />} />
+                  <Route path='/WomenShoes' element={<Categories url="http://localhost:3000/women-footwears" title='Footwears' />} />
+                  <Route path='/WomenJewellery' element={<Categories url="http://localhost:3000/women-jewellery" title='Jewelleries' />} />
+                  <Route path='/Tops' element={<Categories url="http://localhost:3000/women-clothes" title='Tops' />} />
+                  <Route path='/Automotive' element={<Categories url="http://localhost:3000/automotive" title='Automotive' />} />
+                  <Route path='/Lights' element={<Categories url="http://localhost:3000/lights" title='Lights' />} />
+                  <Route path='/Sunglasses' element={<Categories url="http://localhost:3000/sunglasses" title='Sunglasses' />} />
+                  <Route path='/Fragrances' element={<Categories url="http://localhost:3000/fragrances" title='Fragrances' />} />
                   <Route path="/View/:id" element={<View />} />
+                  <Route path='*' element={<NotFound/>}/>
                   </Routes>
                 <Footer />
               </>
@@ -79,7 +91,14 @@ function App() {
         <Routes>
           <Route index element={<AdminHome />} />
           <Route path="login" element={<AdminLogin />} />
-          {/* Add other admin routes as needed */}
+          <Route path='users' element={<Users/>}/>
+          <Route path='addUser' element={<AddUser/>}/>
+          <Route path='editUser/:id' element={<EditUser/>}/>
+          <Route path='products' element={<Products/>}/>
+          <Route path='editProduct/:id' element={<EditProduct/>}/>
+          <Route path='addProduct' element={<AddProduct/>}/>
+          <Route path='orders' element={<Orders/>}/>
+          <Route path='*' element={<NotFound/>}/>
         </Routes>
       </div>
     </div>

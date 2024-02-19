@@ -1,0 +1,27 @@
+.profileImgDiv{
+    margin-top: 1rem;
+    margin-left: 2rem;
+    width: 90%;
+    height: 25rem;
+    background-color: #d9d9d9;
+    border-radius: 25px;
+    margin-bottom: 0;
+}
+
+.profileImg{
+    display: flex;
+    justify-content: center;
+}
+
+.profileDetailsDiv{
+    margin-top: 1rem;
+    margin-left: 1rem;
+    width: 95%;
+    background-color: #d9d9d9;
+    border-radius: 25px;
+    padding-bottom: 2rem;
+}
+
+.EditBtn{
+    width: 100%;
+}

@@ -9,51 +9,51 @@ const Dashboard = () => {
     const renderColContent = () => {
         // Replace this array with the actual data you want to display
         const dataArray = [1, 2, 3, 4];
-    
+
         return dataArray.map((item) => (
             <Col key={item} xs={12} md={6} lg={4} xl={3}>
-            <div style={{width: '100%', height: '100%', paddingLeft: 16, paddingRight: 16, paddingTop: 24, paddingBottom: 24, background: '#D9D9D9', borderRadius: 16, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex'}}>
-            <div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-            <div style={{color: 'black', fontSize: 14, fontWeight: '600', wordWrap: 'break-word'}}>Active Orders</div>
-            <div style={{width: 24, height: 24, position: 'relative'}}>
-            <CiMenuKebab />
-            </div>
-            </div>
-            <div style={{alignSelf: 'stretch', height: 60, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 4, display: 'flex'}}>
-            <div style={{alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex'}}>
-            <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'flex'}}>
-            <div style={{padding: 10, background: '#003F62', borderRadius: 8, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex'}}>
-            <div style={{width: 20, height: 20,display:'flex',justifyContent:'center',color:'white', position: 'relative'}}>
-                <IoBagHandleOutline />
-            </div>
-            </div>
-            <div style={{color: 'black', fontSize: 16, fontFamily: 'Rubik', fontWeight: '600', wordWrap: 'break-word'}}>₹126.500</div>
-            </div>
-            <div style={{justifyContent: 'flex-start', alignItems: 'center', gap: 3, display: 'flex'}}>
-            <div style={{width: 20, height: 20,paddingLeft:'5px', position: 'relative'}}>
-            <div style={{width: 11.25, height: 12.19,  top: 0, position: 'absolute'}}>
-            <BiUpArrowAlt />
-            </div>
-            </div>
-            <div style={{color: 'black', fontSize: 14, fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word'}}>34.7%</div>
-            </div>
-            </div>
-            <div style={{alignSelf: 'stretch', opacity: 0.70, textAlign: 'right', color: 'black', fontSize: 12, fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word'}}>Compared to Oct 2023</div>
-            </div>
-            </div>
-                    </Col>
+                <div style={{ width: '100%', height: '100%', paddingLeft: 16, paddingRight: 16, paddingTop: 24, paddingBottom: 24, background: '#D9D9D9', borderRadius: 16, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 8, display: 'inline-flex' }}>
+                    <div style={{ alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex' }}>
+                        <div style={{ color: 'black', fontSize: 14, fontWeight: '600', wordWrap: 'break-word' }}>Active Orders</div>
+                        <div style={{ width: 24, height: 24, position: 'relative' }}>
+                            <CiMenuKebab />
+                        </div>
+                    </div>
+                    <div style={{ alignSelf: 'stretch', height: 60, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 4, display: 'flex' }}>
+                        <div style={{ alignSelf: 'stretch', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex' }}>
+                            <div style={{ justifyContent: 'flex-start', alignItems: 'center', gap: 16, display: 'flex' }}>
+                                <div style={{ padding: 10, background: '#003F62', borderRadius: 8, justifyContent: 'flex-start', alignItems: 'flex-start', gap: 10, display: 'flex' }}>
+                                    <div style={{ width: 20, height: 20, display: 'flex', justifyContent: 'center', color: 'white', position: 'relative' }}>
+                                        <IoBagHandleOutline />
+                                    </div>
+                                </div>
+                                <div style={{ color: 'black', fontSize: 16, fontFamily: 'Rubik', fontWeight: '600', wordWrap: 'break-word' }}>₹126.500</div>
+                            </div>
+                            <div style={{ justifyContent: 'flex-start', alignItems: 'center', gap: 3, display: 'flex' }}>
+                                <div style={{ width: 20, height: 20, paddingLeft: '5px', position: 'relative' }}>
+                                    <div style={{ width: 11.25, height: 12.19, top: 0, position: 'absolute' }}>
+                                        <BiUpArrowAlt />
+                                    </div>
+                                </div>
+                                <div style={{ color: 'black', fontSize: 14, fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word' }}>34.7%</div>
+                            </div>
+                        </div>
+                        <div style={{ alignSelf: 'stretch', opacity: 0.70, textAlign: 'right', color: 'black', fontSize: 12, fontFamily: 'Open Sans', fontWeight: '600', wordWrap: 'break-word' }}>Compared to Oct 2023</div>
+                    </div>
+                </div>
+            </Col>
         ));
-      };
-  return (
-      <Container fluid>
-          <h1 className='DashboardHead'>Dashboard</h1>
-          <Row className="mb-4">
-              {renderColContent()}
-          </Row>
-          <Row className="mb-4">
-              <Col xs={12} md={8} lg={6}>
+    };
+    return (
+        <Container fluid>
+            <h1 className='DashboardHead'>Dashboard</h1>
+            <Row className="mb-4">
+                {renderColContent()}
+            </Row>
+            <Row className="mb-4">
+                <Col xs={12} md={8} lg={6}>
 
-                  {/* <div className="sale-graph-container" style={{width:'100%'}}>
+                    {/* <div className="sale-graph-container" style={{width:'100%'}}>
                       <div style={{ width: '100%', paddingLeft: 16, paddingRight: 16, paddingTop: 24, paddingBottom: 24, background: '#D9D9D9', borderRadius: 16, flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', gap: 36, display: 'inline-flex' }}>
                           <div style={{ flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'flex-start', gap: 16, display: 'flex' }}>
                               <div style={{ width: '100%', justifyContent: 'space-between', alignItems: 'center', display: 'inline-flex' }}>
@@ -108,11 +108,11 @@ const Dashboard = () => {
                           </div>
                       </div>
                   </div>  */}
-              </Col>
-              <Col></Col>
-          </Row>
-      </Container>
-  );
+                </Col>
+                <Col></Col>
+            </Row>
+        </Container>
+    );
 }
 
 export default Dashboard;

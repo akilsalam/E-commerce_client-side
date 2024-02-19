@@ -17,8 +17,8 @@ const Groceries = (props) => {
         try {
           console.log(props.url);
           const response = await axios.get(props.url);
-          console.log(response.data);  // Log the entire response
-          setData(response.data);  // Set the data directly, assuming the array of groceries is at the top level
+          console.log(response.data); 
+          setData(response.data);  
         } catch (error) {
           console.error('Error fetching data:', error);
         } finally {
@@ -39,11 +39,11 @@ const Groceries = (props) => {
         <h1 className='CategoryTitle'>{props.title}</h1>
     <div className='itemDiv'>
         {data?.map((product) => (
-            <Card className='itemcard' onClick={() => View(product.id)} key={product.id}>
+            <Card className='itemcard' onClick={() => View(product._id)} key={product._id}>
             <Card.Img className='itemImg' variant="top" src={product.thumbnail} />
-            <div className="wish">
+            {/* <div className="wish">
               <FaRegHeart className='fs-4'/>
-            </div>
+            </div> */}
             <Card.Body className='itemBody'>
               <Card.Title className='itemTitle'>{product.title}</Card.Title>
               <Card.Text className='itemText'>{product.brand}</Card.Text>

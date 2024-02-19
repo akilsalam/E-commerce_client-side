@@ -1,17 +1,28 @@
-.SideBar {
-    background-color: #D9D9D9;
-    height: 100vh;
+/* .container-fluid { */
+   /* position: fixed */
+/* } */
+
+.row {
+  display: flex;
+  flex-wrap: nowrap; 
 }
 
-.itemDiv {
+
+.SideBar {
+  position: fixed;
+  background-color: #D9D9D9;
+  height: 100vh;
+}
+
+
+.SideitemDiv {
     cursor: pointer;
-    margin-right: 1rem;
     border-radius: 15px;
     box-shadow: inset 0 0 0 0 white;
     transition: ease-in-out 0.9s;
 }
 
-.itemDiv:hover {
+.SideitemDiv:hover {
     background-color: white;
     box-shadow: inset 100px 0 0 0 white; /* Change from inset 0 -100px 0 0 white to inset 100px 0 0 0 white */
 }
@@ -53,3 +64,7 @@
     transform: translateY(-100%);
   }
   
+  .OutletDiv{
+    padding: 0;
+    margin: 0;
+  }

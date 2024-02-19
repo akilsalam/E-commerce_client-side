@@ -5,17 +5,17 @@ import BannerAD from './Home/BannerAD/BannerAD';
 import OfferCards from './Home/OfferCards/OfferCards';
 import Products from './Home/Products/Products';
 import { Offcanvas,Button } from 'react-bootstrap';
-import img from '../Images/Logo.png'
+import img from '../Images/icon.svg'
 import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
-  const user = localStorage.getItem('ShipShopUserName')
+  const user = localStorage.getItem('ShipShopUserName') || localStorage.getItem('ShipShopUserPhone')
   const [show, setShow] = useState(true);
   const navigate = useNavigate()
 const handleClose = () => setShow(false);
 
-  const signIn = () =>{
-    navigate('/signup')
+  const logIn = () =>{
+    navigate('/login')
   }
 
   return (
@@ -28,13 +28,13 @@ const handleClose = () => setShow(false);
 
         <Offcanvas.Body className='text-center' style={{fontWeight:'bold', color:'blueviolet'}}>
         <div>
-          <img src={img} alt="" />
+          <img src={img} alt="" width={'170px'} />
         </div>
-        Sign in for your best experience
+        Log in for your best experience
         <br />
         <br />
         <div style={{display:'flex' ,justifyContent:'center'}}>
-        <Button className='' onClick={signIn}  variant="warning">Sign in Securely</Button>{' '}
+        <Button className='' onClick={logIn}  variant="warning">Log in Securely</Button>{' '}
         </div>
         </Offcanvas.Body>
         </div>

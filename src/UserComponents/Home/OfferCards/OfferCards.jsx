@@ -59,7 +59,7 @@ const OfferCards = () => {
   <div className='row'>
     <div className='col-sm-12 col-md-6 col-lg-4'>
       <div className='card'>
-        <h1 className='cardHead'>Upto 60% off || Styles for men</h1>
+        <h1 className='cardHead'>Styles for men</h1>
         <div className='cardImgDiv'>
           <div className='itemContainer' onClick={clothes}>
             <img className='cardImg' src={men1} alt='' />
@@ -84,7 +84,7 @@ const OfferCards = () => {
 
     <div className='col-sm-12 col-md-6 col-lg-4'>
       <div className='card'>
-        <h1 className='cardHead'>Upto 60% off || Styles for Women</h1>
+        <h1 className='cardHead'>Styles for Women</h1>
         <div className='cardImgDiv'>
           <div className='itemContainer' onClick={Tops}>
             <img className='cardImg' src={home1} alt='' />
@@ -109,7 +109,7 @@ const OfferCards = () => {
 
     <div className='col-sm-12 col-md-6 col-lg-4'>
       <div className='card'>
-        <h1 className='cardHead'>Upto 60% off || Other need Items</h1>
+        <h1 className='cardHead'> Other need Items</h1>
         <div className='cardImgDiv'>
           <div className='itemContainer' onClick={Automotives}>
             <img className='cardImg' src={screen1} alt='' />

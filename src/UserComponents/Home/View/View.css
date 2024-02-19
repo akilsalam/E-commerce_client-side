@@ -9,11 +9,22 @@
     margin: 1rem /* Add some margin between ImgDiv and DetailDiv */
   }
   
-  .Img {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-  }
+/* Add these styles to your existing View.css file */
+
+.Img {
+  position: relative;
+  overflow: hidden;
+}
+
+.img-fluid {
+  width: 100%;
+  transition: transform 0.5s ease; /* Smooth transition for the zoom effect */
+}
+
+.Img:hover .img-fluid {
+  transform: scale(2.5); /* Adjust the scale factor for the desired zoom level */
+}
+
 
   .wishlist {
     position: absolute;

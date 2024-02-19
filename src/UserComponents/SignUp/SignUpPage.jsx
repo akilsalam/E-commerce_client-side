@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './SignUpPage.css';
-import logo from '../../Images/Logo.png';
+import logo from '../../Images/icon.svg';
 import { Link } from 'react-router-dom';
 import { Form,Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
+
 
 const SignupPage = () => {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
-  const [phone, setPhone] = useState('');
+  const [pincode, setPincode] = useState('')
+  const [locality, setLocality] = useState('');
+  const [town, setTown] = useState('');
+  const [state, setState] = useState('')
+  const [phone, setPhone] = useState('+91');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -25,6 +32,10 @@ const SignupPage = () => {
         lastData: lastName,
         emailData: email,
         address:address,
+        pincode:pincode,
+        locality:locality,
+        town:town,
+        state:state,
         phone:phone,
         passwordData: password,
       }, {
@@ -38,10 +49,10 @@ const SignupPage = () => {
 
         if (data.success) {
           // Set localStorage
-          if (email === email && password === password) {
-            localStorage.setItem("ShipShopUserName", email);
-            // localStorage.setItem("ShipShopPassword", password);
-          }
+          // if (email === email && password === password) {
+          //   localStorage.setItem("ShipShopUserName", email);
+          //   // localStorage.setItem("ShipShopPassword", password);
+          // }
 
           // Navigate to the specified URL
           navigate(data.redirectUrl);
@@ -66,17 +77,21 @@ const SignupPage = () => {
     <div className="SignupPage">
       <div className="SignupDiv">
         <div className="logoImg">
-          <img src={logo} alt="Logo" />
+          <img className='logo' src={logo} alt="Logo" />
         </div>
+        {errorMessage && 
+                <Alert className='text-center' variant='danger'>
+                {errorMessage}
+              </Alert>}
         <form onSubmit={handleSubmit}>
-          <div className="row">
+          <div className="row flex-wrap">
             <div className="col-md-6">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="firstname" >
                   FirstName
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="firstname" onChange={(e) => setFirstName(e.target.value)}/>
+                  <input className="Input" type="text" id="firstname" onChange={(e) => setFirstName(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -86,19 +101,69 @@ const SignupPage = () => {
                   LastName
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="lastname" onChange={(e) => setLastName(e.target.value)}/>
+                  <input className="Input" type="text" id="lastname" onChange={(e) => setLastName(e.target.value)} required/>
                 </div>
               </div>
             </div>
           </div>
-          <div className="row">
-            <div className="col-md-6">
+          <div className="row flex-wrap">
+            <div className="col-md-12">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="address">
                   Address
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="address" onChange={(e) => setAddress(e.target.value)}/>
+                  <textarea className="Input" rows={4} cols={50} type="text" id="address" onChange={(e) => setAddress(e.target.value)} required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row flex-wrap">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="pincode">
+                  Pincode
+                </label>
+                <div className="InputDiv">
+                  <input className="Input" type="number" id="pincode" onChange={(e) => setPincode(e.target.value)} required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row flex-wrap">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="locality" >
+                  Locality
+                </label>
+                <div className="InputDiv">
+                  <input className="Input" type="text" id="locality" onChange={(e) => setLocality(e.target.value)} required/>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="town">
+                  City/District/Town
+                </label>
+                <div className="InputDiv">
+                  <input className="Input" type="text" id="town" onChange={(e) => setTown(e.target.value)} required/>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="row flex-wrap">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="state" >
+                  State
+                </label>
+                <div className="InputDiv">
+                  <input className="Input" type="text" onChange={(e) => setState(e.target.value)} required/>
+                    {/* <option value="" onChange={(e) => setState(e.target.value)}>Kerala</option>
+                    <option value="" onChange={(e) => setState(e.target.value)}>TamilNadu</option>
+                    <option value="" onChange={(e) => setState(e.target.value)}>Kannada</option>
+                  </select> */}
                 </div>
               </div>
             </div>
@@ -108,19 +173,30 @@ const SignupPage = () => {
                   Phone no
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="phone" onChange={(e) => setPhone(e.target.value)}/>
+                <PhoneInput
+  inputProps={{
+    name: 'phone',
+    required: true,
+    autoFocus: true,
+  }}
+  country="in"
+  value={phone}
+  onChange={(value) => setPhone(value)}
+/>
+
+                  {/* <input className="Input" type="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required/> */}
                 </div>
               </div>
             </div>
           </div>
-          <div className="row">
+          <div className="row flex-wrap">
             <div className="col-md-6">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="username">
                   Username
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="username" onChange={(e) => setEmail(e.target.value)}/>
+                  <input className="Input" type="text" id="username" onChange={(e) => setEmail(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -130,31 +206,10 @@ const SignupPage = () => {
                   Password
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="password" id="password" onChange={(e) => setPassword(e.target.value)}/>
+                  <input className="Input" type="password" id="password" onChange={(e) => setPassword(e.target.value)} required/>
                 </div>
               </div>
             </div>
-            <div className="col-md-2">
-            <Form.Check
-              type="radio"
-              label="Male"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios1"
-              />
-              </div>
-              <div className="col-md-2">
-            <Form.Check
-              type="radio"
-              label="Female"
-              name="formHorizontalRadios"
-              id="formHorizontalRadios1"
-              />
-
-              </div>
-        {errorMessage && 
-                <Alert className='text-center' variant='danger'>
-                {errorMessage}
-              </Alert>}
               <br />
               <br />
           </div>

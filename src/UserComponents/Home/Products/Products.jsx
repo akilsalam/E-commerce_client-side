@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import { Card,Button } from 'react-bootstrap';
+import { Card,Button,Table } from 'react-bootstrap';
 import { FaRegHeart } from "react-icons/fa";
 import axios from 'axios';
 import './Product.css'
@@ -39,12 +39,12 @@ const Products = (prop) => {
       <div className='productBar' id={prop.id}>
         <h1>{prop.title}</h1>
         <div className='productDiv'>
-          {data?.map((product) => (
-            <Card className='productcard' onClick={() => View(product.id)} key={product.id}>
+          {data?.slice(0, 4).map((product) => (
+            <Card className='productcard' onClick={() => View(product._id)} key={product._id}>
               <Card.Img className='productImg' variant="top" src={product.thumbnail} />
-              <div className="wish">
+              {/* <div className="wish">
                 <FaRegHeart className='fs-4' />
-              </div>
+              </div> */}
               <Card.Body className='productBody'>
                 <Card.Title className='productTitle'>{product.title}</Card.Title>
                 <Card.Text className='productText'>{product.description}</Card.Text>
