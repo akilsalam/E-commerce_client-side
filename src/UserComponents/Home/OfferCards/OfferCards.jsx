@@ -56,7 +56,7 @@ const OfferCards = () => {
   }
   return (
 <div className='container'>
-  <div className='row'>
+  <div className='row flex-wrap'>
     <div className='col-sm-12 col-md-6 col-lg-4'>
       <div className='card'>
         <h1 className='cardHead'>Styles for men</h1>

@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import './Products.css'
+import './Products.css';
 import { AiFillDelete } from "react-icons/ai";
 import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoBagAdd } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
+import { FaRegImages } from "react-icons/fa";
 
 const Products = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get('http://localhost:3000/admin/products');
-        const flattenedData = Object.values(response.data).flatMap(category => category);
-        setData(flattenedData);
+        setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       } finally {
@@ -29,44 +30,73 @@ const Products = () => {
     fetchData();
   }, []);
 
-  const editProduct = (productId) =>{
+  const editProduct = (productId) => {
     navigate(`/admin/editProduct/${productId}`)
   }
-  const addProduct = () =>{
+
+  const addProduct = () => {
     navigate('/admin/addProduct')
   }
 
-  const handleDelete = async (productId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/admin/deleteProduct/${productId}`, {
-        method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
+  const otherImage = (productId) => {
+    navigate(`/admin/otherImages/${productId}`)
+  }
 
-      if (response.ok) {
-        console.log('Product deleted successfully');
-        // Redirect or perform any other actions after deletion
-      } else {
-        console.error('Failed to delete product');
+  const handleDelete = async (productId) => {
+    const confirmation = window.confirm(`Are you sure you want to delete the product of ID:${productId}`)
+    if (confirmation) {
+      try {
+        const response = await fetch(`http://localhost:3000/admin/deleteProduct/${productId}`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        if (response.ok) {
+          console.log('Product deleted successfully');
+          window.location.reload()
+          // Redirect or perform any other actions after deletion
+        } else {
+          console.error('Failed to delete product');
+        }
+      } catch (error) {
+        console.error('Error deleting product:', error);
       }
-    } catch (error) {
-      console.error('Error deleting product:', error);
     }
   };
 
+  // Filter products based on the first letters in title, brand, and category
+  const filteredProducts = data.filter(product =>
+    product.title.toLowerCase().startsWith(searchTerm.toLowerCase()) ||
+    product.brand.toLowerCase().startsWith(searchTerm.toLowerCase()) ||
+    product.category.toLowerCase().startsWith(searchTerm.toLowerCase())
+  );
+
   return (
     <div>
-        <div>
-            <h1 className="ProductHead"><MdOutlineProductionQuantityLimits />Products</h1>
-            <div className="table-responsive" style={{height:'90vh'}}>
-            <div className='productAdd'>
-            <Button onClick={addProduct} variant="primary"><IoBagAdd /></Button>{' '}
+      <div>
+        <h1 className="ProductHead"><MdOutlineProductionQuantityLimits />Products</h1>
+        <div className="table-responsive" style={{ height:'85vh' }}>
+        <div className='productAdd'>
+          <div className="input-group">
+            <div className="form-outline" data-mdb-input-init>
+              <input
+                type="search"
+                id="form1"
+                placeholder="Search Products"
+                className="form-control position-relative pl-5"
+                style={{ paddingLeft: '2rem' }}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <i className="fas fa-search position-absolute start-0" style={{ top: '50%', transform: 'translateY(-50%)', paddingLeft: '12px' }}></i>
             </div>
-            <Table  bordered hover size="sm" responsive="sm" >
-            <thead >
-              <tr >
+          </div>
+          <Button onClick={addProduct} variant="primary"><IoBagAdd /></Button>{' '}
+        </div>
+          <Table bordered hover size="sm" responsive="sm" className="table">
+            <thead>
+              <tr>
                 <th>No</th>
                 <th>Thumbnail</th>
                 <th>Title</th>
@@ -76,15 +106,19 @@ const Products = () => {
                 <th>Price</th>
                 <th>Discount</th>
                 <th>Stock</th>
-                <th>Rating</th>
+                <th>Images</th>
                 <th>Options</th>
               </tr>
             </thead>
             <tbody>
-              {data?.map((product, index) => (
+              {loading && <Spinner animation='border' role='status'></Spinner>}
+              {filteredProducts?.map((product, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td style={{justifyContent:'center',display:'flex',textAlign:'center'}}><img width={'50px'}  src={product.thumbnail} alt="" /></td>
+                  <td style={{ justifyContent: 'center', display: 'flex', textAlign: 'center' }}><img width={'50px'} src={product.thumbnail && product.thumbnail.startsWith('http')
+                    ? product.thumbnail
+                    : `data:image/jpeg;base64,${product.thumbnail}`
+                  } alt="" /></td>
                   <td>{product.title}</td>
                   <td>{product.brand}</td>
                   <td>{product.category}</td>
@@ -92,18 +126,18 @@ const Products = () => {
                   <td> &#x20B9;{product.price}</td>
                   <td>{product.discountPercentage}%</td>
                   <td>{product.stock}</td>
-                  <td>{product.rating}</td>
-                  <td>
-                  <Button variant="warning" onClick={()=>editProduct(product._id)}><FaEdit /></Button>{' '}
-      <Button onClick={()=>handleDelete(product._id)} variant="danger"><AiFillDelete /></Button>{' '}
+                  <td className='text-center'><Button variant='secondary' onClick={() => otherImage(product._id)}><FaRegImages /></Button></td>
+                  <td className='text-center'>
+                    <Button variant="warning" onClick={() => editProduct(product._id)}><FaEdit /></Button>{' '}
+                    <Button className='mt-2' onClick={() => handleDelete(product._id)} variant="danger"><AiFillDelete /></Button>{' '}
                   </td>
                 </tr>
               ))}
             </tbody>
           </Table>
-            </div>
-        </div>
-              </div>
+      </div>
+      </div>
+    </div>
   );
 };
 

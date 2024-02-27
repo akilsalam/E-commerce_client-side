@@ -159,11 +159,12 @@ const SignupPage = () => {
                   State
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" onChange={(e) => setState(e.target.value)} required/>
-                    {/* <option value="" onChange={(e) => setState(e.target.value)}>Kerala</option>
-                    <option value="" onChange={(e) => setState(e.target.value)}>TamilNadu</option>
-                    <option value="" onChange={(e) => setState(e.target.value)}>Kannada</option>
-                  </select> */}
+                  <select className="Input" type="text" onChange={(e) => setState(e.target.value)} required>
+                    <option value="">Set Your State</option>
+                    <option value="Kerala" >Kerala</option>
+                    <option value="TamilNadu" >TamilNadu</option>
+                    <option value="Kannada" >Kannada</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -179,6 +180,7 @@ const SignupPage = () => {
     required: true,
     autoFocus: true,
   }}
+  required
   country="in"
   value={phone}
   onChange={(value) => setPhone(value)}

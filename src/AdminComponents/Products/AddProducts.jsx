@@ -2,60 +2,131 @@ import React, { useState } from 'react';
 import './AddProduct.css';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
 
 const AddProduct = () => {
-    const [name, setName] = useState('');
-    const [brand, setBrand] = useState('');
-    const [description, setDescription] = useState('');
-    const [category, setCategory] = useState('');
-    const [price, setPrice] = useState(0);
-    const [discountPercentage, setDiscountPercentage] = useState(0);
-    const [stock, setStock] = useState(0);
-    const [thumbnail, setThumbnail] = useState(null);
-    const [thumbnailPreview, setThumbnailPreview] = useState(null);
-  
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-    
-        if (!category || !name || !price || !stock) {
-          console.error('Category, name, price, and stock are required');
-          return;
-        }
-    
-        const formData = new FormData();
-        formData.append('category', category);
-        formData.append('title', name);
-        formData.append('brand', brand);
-        formData.append('description', description);
-        formData.append('price', price);
-        formData.append('discountPercentage', discountPercentage);
-        formData.append('stock', stock);
-    
-        try {
-          const response = await axios.post('http://localhost:3000/admin/addProduct', formData);
-    
-          console.log('Product added successfully:', response.data);
-        } catch (error) {
-          console.error('Failed to add product:', error);
-          console.log('Full error object:', error);
-        }
+  const [title, setTitle] = useState('');
+  const [brand, setBrand] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState('');
+  const [price, setPrice] = useState('');
+  const [discountPercentage, setDiscountPercentage] = useState('');
+  const [stock, setStock] = useState('');
+  const [thumbnail, setThumbnail] = useState(null);
+  const [image1, setImage1] = useState(null)
+  const [image2, setImage2] = useState(null)
+  const [image3, setImage3] = useState(null)
+  const navigate = useNavigate()
+
+  const handleThumbnail = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setThumbnail(reader.result.split(',')[1]); // Extract base64 part
       };
-    
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubImage1 = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImage1(reader.result.split(',')[1]); // Extract base64 part
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubImage2 = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImage2(reader.result.split(',')[1]); // Extract base64 part
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubImage3 = (e) => {
+    const file = e.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+
+      reader.onloadend = () => {
+        setImage3(reader.result.split(',')[1]); // Extract base64 part
+      };
+
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const productData = {
+        title,
+        brand,
+        description,
+        category,
+        price,
+        discountPercentage,
+        stock,
+        thumbnail,
+        image1,
+        image2,
+        image3,
+      };
+
+      const response = await axios.post('http://localhost:3000/admin/addProduct', productData);
+
+      if (response.status === 200) {
+        const data = response.data;
+
+        if (data.success) {
+          // Handle success, e.g., show success message
+          navigate('/admin/products')
+          console.log('Product added successfully');
+        } else {
+          // Handle failure, e.g., show error message
+          window.confirm(data.message)
+          console.error(data.message || 'Failed to add product');
+        }
+      } else {
+        console.error('Failed to send data');
+      }
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
   return (
+    <div className='AddProductWrapper'>
     <div className='AddProductPage'>
       <div className='AddProductDiv'>
         <h1 className='AddProductHead m-3'>Add New Product</h1>
-        <form 
-        onSubmit={handleSubmit}
-        >
-        <div className="Rows row flex-wrap">
+        <form onSubmit={handleSubmit} encType="multipart/form-data">
+          <div className="Rows row flex-wrap">
             <div className="col-md-6">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="name" >
                   Name
                 </label>
                 <div className="ProductInputDiv">
-                  <input className="ProductInput" type="text" id="title" value={name} onChange={(e)=>setName(e.target.value)}/>
+                  <input className="ProductInput" type="text" id="title" onChange={(e) => setTitle(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -65,7 +136,7 @@ const AddProduct = () => {
                   Brand
                 </label>
                 <div className="ProductInputDiv">
-                  <input className="ProductInput" type="text" id="brand" value={brand} onChange={(e)=>setBrand(e.target.value)}/>
+                  <input className="ProductInput" type="text" id="brand" onChange={(e) => setBrand(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -77,7 +148,7 @@ const AddProduct = () => {
                   Description
                 </label>
                 <div className="ProductInputDiv">
-                  <textarea rows="3" cols="50" type="text" id="description" value={description} onChange={(e)=>setDescription(e.target.value)} />
+                  <textarea rows="3" cols="50" type="text" id="description" onChange={(e) => setDescription(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -89,7 +160,7 @@ const AddProduct = () => {
                   Category
                 </label>
                 <div className="ProductInputDiv">
-                  <select className="ProductInput" type="text" id="firstname" value={category} onChange={(e)=>setCategory(e.target.value)} >
+                  <select className="ProductInput" type="text" id="firstname" onChange={(e) => setCategory(e.target.value)} required>
                     <option value="">Select Your Category</option>
                     <option value="Appliances">Appliances</option>
                     <option value="Automotives">Automotives</option>
@@ -121,7 +192,7 @@ const AddProduct = () => {
                   Price
                 </label>
                 <div className="ProductInputDiv">
-                  <input className="ProductInput" type="number" id="price" value={price} onChange={(e)=>setPrice(e.target.value)} />
+                  <input className="ProductInput" type="number" id="price" onChange={(e) => setPrice(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -133,7 +204,7 @@ const AddProduct = () => {
                   DiscountPercentage
                 </label>
                 <div className="ProductInputDiv">
-                  <input className="ProductInput" type="number" id="discountPercentage" value={discountPercentage} onChange={(e)=>setDiscountPercentage(e.target.value)}  />
+                  <input className="ProductInput" type="number" id="discountPercentage" onChange={(e) => setDiscountPercentage(e.target.value)} required/>
                 </div>
               </div>
             </div>
@@ -143,36 +214,98 @@ const AddProduct = () => {
                   Stock
                 </label>
                 <div className="ProductInputDiv">
-                  <input className="ProductInput" type="number" id="stock" value={stock} onChange={(e)=>setStock(e.target.value)} />
+                  <input className="ProductInput" type="number" id="stock" onChange={(e) => setStock(e.target.value)} required/>
                 </div>
               </div>
             </div>
           </div>
-          {/* <div className="Rows row flex-wrap">
-          <div className="col-md-6">
-          <div className="form-group">
-            <label className="Inputlabel" htmlFor="thumbnail">
-              Thumbnail
-            </label>
-            <div className="ProductInputDiv">
-              <input
-                className="ProductInput"
-                type="file"
-                id="thumbnail"
-                onChange={handleThumbnailChange}
-                // onChange={(e)=>setThumbnail(e.target.files[0])}
-              />
+          <div className="Rows row flex-wrap">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="thumbnail">
+                  Thumbnail
+                </label>
+                <div className="ProductInputDiv">
+                  <input
+                    className="ProductInput"
+                    type="file"
+                    id="thumbnail"
+                    required
+                    onChange={handleThumbnail}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <div className="ProductInputDiv" style={{ width: '100px' }}>
+                  <strong>Thumbnail</strong>
+                {thumbnail ? (
+        <img src={`data:image/jpeg;base64,${thumbnail}`} alt="Thumbnail" className="img-fluid" />
+      ): <><br/><span>Not Added</span></>}
+
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-  <div className="col-md-6">
-    <div className="form-group">
-      <div className="ProductInputDiv" style={{width:'100px'}}>
-              {thumbnailPreview && <img src={thumbnailPreview} alt="" className="img-fluid" />}
-      </div>
-    </div>
-  </div>
-</div> */}
+          <div className="Rows row flex-wrap">
+            <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="thumbnail">
+                  Sub Images
+                </label>
+                <div className="ProductInputDiv">
+                  <input
+                    className="ProductInput"
+                    type="file"
+                    id="image"
+                    onChange={handleSubImage1}
+                  />
+                </div>                
+                <div className="ProductInputDiv">
+                  <input
+                    className="ProductInput"
+                    type="file"
+                    id="image"
+                    onChange={handleSubImage2}
+                  />
+                </div>
+                <div className="ProductInputDiv">
+                  <input
+                    className="ProductInput"
+                    type="file"
+                    id="image"
+                    onChange={handleSubImage3}
+                  />
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="form-group">
+                <div className="ProductInputDiv" style={{ width: '100px' }}>
+                  <strong>Image1</strong>
+                {image1 ? (
+                  <img src={`data:image/jpeg;base64,${image1}`} alt="image1" className="img-fluid" />
+                  ): <><br/><span>Not Added</span></> }
+
+                </div>
+                <div className="ProductInputDiv" style={{ width: '100px' }}>
+                  <strong>Image2</strong>
+                {image2 ? (
+                  <img src={`data:image/jpeg;base64,${image2}`} alt="image2" className="img-fluid" />
+                  ):<><br/><span>Not Added</span></>}
+
+                </div>
+                <div className="ProductInputDiv" style={{ width: '100px' }}>
+                  <strong>Image3</strong>
+                {image3 ? (
+                  <img src={`data:image/jpeg;base64,${image3}`} alt="image3" className="img-fluid" />
+                  ):<><br/><span>Not Added</span></>}
+
+                </div>
+              </div>
+            </div>
+          </div>
           <div className='BtnDiv'>
             <Button variant='outline-primary' className='AddProductBtn' type='submit'>
               Add Product
@@ -180,6 +313,7 @@ const AddProduct = () => {
           </div>
         </form>
       </div>
+    </div>
     </div>
   );
 };

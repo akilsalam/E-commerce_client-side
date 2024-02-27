@@ -1,0 +1,140 @@
+.CartHead{
+    color: #c7b40c;
+font-family: Inter;
+font-size: 28px;
+text-align: center;
+font-style: normal;
+font-weight: 800;
+line-height: 24px; /* 50% */
+text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+
+}
+
+.CartLists{
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+.CartProducts{
+    width: 100%;
+    height: 75vh;
+    overflow-y: auto;
+
+}
+
+.list{
+    width: 95%;
+    flex-shrink: 0;
+    background-color: #D9D9D9;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+}
+
+.list:hover{
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ProductDetailBar{
+    /* margin-left: 1.5rem; */
+    margin-bottom: 1rem;
+    cursor: pointer;
+
+}
+
+
+.ProductImg{
+    display: flex;
+    justify-content: center;
+    margin: 1rem;
+    height: 167px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.ProductName{
+    padding-top: 2rem;
+}
+
+.ProductDetail{
+    color: grey;
+}
+
+.PlaceBtn{
+    display: flex;
+    justify-content: center;
+    border: 1px solid #FF6F1E;
+    background-color: #FF6F1E;
+}
+
+.deleteDiv{
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    border-radius: 10px;
+    display: flex;
+    padding-top: 0.5rem;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.deleteCart:hover{
+    color: #d60707;
+    transform: scale(1.2);
+}
+
+.PriceDetails{
+    margin-top: 2.7rem;
+    border-radius: 10px;
+    width: 100%;
+    background-color: #D9D9D9;
+}
+
+.PriceHead{
+    padding-left: 1rem;
+    padding-top: 1rem;
+    color: #919191;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 800;
+}
+
+.PriceItemDiv{
+    display: flex;
+}
+
+.PriceItemHead{
+    padding-left: 1rem;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.PriceItem {
+    font-size: 18px;
+    font-weight: 600;
+    margin-left: auto; /* Add this line */
+    margin-right: 1rem;
+}
+
+.totalHead{
+    padding-left: 1rem;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.deliveryFee{
+    color: grey;
+    text-decoration: line-through;
+}
+
+.deliveryFree{
+    padding-left: 5px;
+    color: #4f9c07;
+}
+
+.savings{
+    text-align: center;
+    color: #4f9c07;
+    font-weight: 500;
+}

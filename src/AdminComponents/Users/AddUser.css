@@ -10,6 +10,8 @@
   .AddUserDiv {
     background-color: #D9D9D9;
     width: 70%;
+    max-height: 600px; /* Set a maximum height for the div */
+    overflow-y: auto; /* Enable vertical scrolling */
     max-width: 600px; /* Set a maximum width to prevent the form from becoming too wide on larger screens */
     border-radius: 15px;
     padding: 2rem;

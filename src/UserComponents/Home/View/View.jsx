@@ -6,10 +6,22 @@ import axios from 'axios';
 import { FaRegHeart } from 'react-icons/fa';
 import { useParams } from 'react-router-dom';
 import { BsCart3 } from 'react-icons/bs';
+import { IoMdHeart } from "react-icons/io";
+import { GrStatusGood } from "react-icons/gr";
+import { useNavigate } from 'react-router-dom';
 
 const View = () => {
   const { id } = useParams();
   const [productData, setProductData] = useState(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+  const [addedToCart, setAddedToCart] = useState(false);
+  const [addedToWishlist, setAddedToWishlist] = useState(false);
+  const navigate = useNavigate()
+
+  const Buy = () =>{
+    navigate(`/checkout/${productData._id}`)
+  }
 
   useEffect(() => {
     const fetchProductData = async () => {
@@ -25,36 +37,113 @@ const View = () => {
     fetchProductData();
   }, [id]);
 
-  console.log('Product Data in State:', productData);
-
-  const [isAddedToCart, setAddedToCart] = useState(false);
-  const [isAddedToWishlist, setAddedToWishlist] = useState(false);
-
   useEffect(() => {
-    axios
-      .get(`http://localhost:3000/checkCart/${id}`)
-      .then((response) => setAddedToCart(response.data.isAdded))
-      .catch((error) => console.error('Error checking cart status:', error));
+    const storedCart = localStorage.getItem('Cart');
+    const storedWishlist = localStorage.getItem('WishList');
+
+    if (storedCart) {
+      const cartItems = JSON.parse(storedCart);
+      const inCart = cartItems.some(item => item._id === id);
+      setAddedToCart(inCart);
+    }
+
+    if (storedWishlist) {
+      const wishlistItems = JSON.parse(storedWishlist);
+      const inWishlist = wishlistItems.some(item => item._id === id);
+      setAddedToWishlist(inWishlist);
+    }
   }, [id]);
 
-  const addToCart = () => {
-    setAddedToCart(localStorage.setItem('CartData', isAddedToCart));
+  const toCart = () => {
+    const storedCart = localStorage.getItem('Cart');
+    let existingCart = [];
+
+    if (storedCart) {
+      existingCart = JSON.parse(storedCart);
+    }
+
+    const existingProductIndex = existingCart.findIndex(item => item._id === id);
+
+    if (existingProductIndex === -1) {
+      // Product is not in cart, add it
+      existingCart.push({
+        _id: id,
+        title: productData.title,
+        description: productData.description,
+        price: productData.price,
+        discountPercentage:productData.discountPercentage,
+        rating:productData.rating,
+        stock:productData.stock,
+        brand:productData.brand,
+        category:productData.category,
+        thumbnail:productData.thumbnail,
+        images:productData.images
+      });
+
+      // Show a success notification
+      setNotificationMessage(`Product added to Cart!`);
+      setAddedToCart(true);
+    } else {
+      // Product is already in cart, remove it
+      existingCart.splice(existingProductIndex, 1);
+
+      // Show an info notification
+      setNotificationMessage(`Product removed from Cart!`);
+      setAddedToCart(false);
+    }
+
+    localStorage.setItem('Cart', JSON.stringify(existingCart));
+    setShowNotification(true);
+
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
   };
 
-  const addToWishList = () => {
-    axios
-      .post(`http://localhost:3000/addToWishList/${id}`)
-      .then((response) => {
-        console.log(response.data);
-        setAddedToWishlist(true);
+  const toWishList = () => {
+    const storedWishlist = localStorage.getItem('WishList');
+    let existingWishList = [];
 
-        const timer = setTimeout(() => {
-          setAddedToWishlist(false);
-        }, 3000);
+    if (storedWishlist) {
+      existingWishList = JSON.parse(storedWishlist);
+    }
 
-        return () => clearTimeout(timer);
-      })
-      .catch((error) => console.error('Error adding item to wishlist:', error));
+    const existingProductIndex = existingWishList.findIndex(item => item._id === id);
+
+    if (existingProductIndex === -1) {
+      // Product is not in wishlist, add it
+      existingWishList.push({
+        _id: id,
+        title: productData.title,
+        description: productData.description,
+        price: productData.price,
+        discountPercentage:productData.discountPercentage,
+        rating:productData.rating,
+        stock:productData.stock,
+        brand:productData.brand,
+        category:productData.category,
+        thumbnail:productData.thumbnail,
+        images:productData.images
+      });
+
+      // Show a success notification
+      setNotificationMessage(`Product added to Wish List!`);
+      setAddedToWishlist(true);
+    } else {
+      // Product is already in wishlist, remove it
+      existingWishList.splice(existingProductIndex, 1);
+
+      // Show an info notification
+      setNotificationMessage(`Product removed from Wish List!`);
+      setAddedToWishlist(false);
+    }
+
+    localStorage.setItem('WishList', JSON.stringify(existingWishList));
+    setShowNotification(true);
+
+    setTimeout(() => {
+      setShowNotification(false);
+    }, 3000);
   };
 
   const [transformOrigin, setTransformOrigin] = useState('center center');
@@ -71,38 +160,43 @@ const View = () => {
     setTransformOrigin('center center');
   };
 
+  const calculateRestAmountForItem = (item) => {
+    return Math.round(item.price - (item.price * (item.discountPercentage / 100)));
+  };
+
   return (
     productData ? (
-      <div className="MainDiv row">
+      <div className="MainDiv row flex-wrap">
         <div className="ImgDiv col-md-6">
-          {isAddedToWishlist ?
-            <Alert variant='danger' className='text-center'>
-              Added to <FaRegHeart className='text-danger' /> WishList
-            </Alert>
-            : null}
-          {isAddedToCart ?
-            <Alert variant='warning' className='text-center'>
-              Added to <BsCart3 className='text-warning' /> Cart
-            </Alert>
-            : null}
           <div className="Img" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
-            <img src={productData.thumbnail} alt="" className="img-fluid" style={{ transformOrigin }} />
-            <div className="wishlist" onClick={addToWishList} style={isAddedToWishlist ? { color: 'red' } : null}>
-              <FaRegHeart className='fs-4' />
+            <img src={productData.thumbnail && productData.thumbnail.startsWith('/')
+              ? `data:image/jpeg;base64,${productData.thumbnail}`
+              : productData.thumbnail
+            } alt="" className="img-fluid" style={{ transformOrigin }} />
+            <div className="wishlist  m-1" onClick={toWishList}>
+              {addedToWishlist ?
+                <IoMdHeart className='fs-4' style={{ color: 'red' }} /> :
+                <FaRegHeart className='fs-4 m-1' />
+              }
             </div>
           </div>
+          {showNotification && (
+            <div style={{ display: 'flex', justifyContent: 'center' }} className={`notification ${notificationMessage.includes('removed') ? 'removedNotification' : ''}`}>
+              <p><span style={{ color: 'GrayText' }}><GrStatusGood className='fs-4' /></span>{notificationMessage}</p>
+            </div>
+          )}
           <div className='ButtonsDiv'>
             <div className='ButtonDiv'>
               <button
-                onClick={addToCart}
+                onClick={toCart}
                 className='CartButton'
-                style={isAddedToCart ? { backgroundColor: 'grey' } : null}
+                style={addedToCart ? { backgroundColor: 'maroon' } : null}
               >
-                {isAddedToCart ? 'Added to Cart' : 'Add to Cart'}
+                {addedToCart ? 'Remove from Cart' : 'Add to Cart'}
               </button>
             </div>
             <div className='ButtonDiv'>
-              <button className='BuyButton'>Buy Now</button>
+              <button className='BuyButton' onClick={Buy}>Buy Now</button>
             </div>
           </div>
           <br />
@@ -131,18 +225,22 @@ const View = () => {
           <h1 className='ViewHead'>Product Details</h1>
           <div className='ViewDetails'>
             <h5 className='ViewName'>Name: {productData.title}</h5>
-            <pre className='ViewDescription'>Description: {productData.description}</pre>
-            <pre>Discount Percentage: {productData.discountPercentage}</pre>
-            <pre>Brand: {productData.brand}</pre>
-            <pre>Category: {productData.category}</pre>
-            <p className='ViewPrice'>Price: &#x20B9;{productData.price}</p>
+            <p className='ViewDescription'>Description: {productData.description}</p>
+            <p>Discount Percentage: {productData.discountPercentage}</p>
+            <p>Brand: {productData.brand}</p>
+            <p>Category: {productData.category}</p>
+            <div style={{display:'flex'}}>
+            <span className='ViewPrice'>Price:</span><p className='ViewPrice' style={{paddingLeft:'1rem',paddingRight:'1rem',textDecoration:'line-through',color:'grey'}}> &#x20B9;{productData.price}</p> <p className='ViewPrice'> &#x20B9;{calculateRestAmountForItem(productData)}</p>
+            </div>
             <div className="col-md-12">
               <div className="">
                 <h5>Images</h5>
                 <Carousel>
                   {Array.isArray(productData.images) && productData.images.map((image, index) => (
-                    <Carousel.Item key={index}>
-                      <img src={image} alt={`Image ${index}`} />
+                    <Carousel.Item key={index} >
+                      <div style={{display:'flex',justifyContent:'center'}}>
+                      <img style={{borderRadius:'10px'}} src={image} alt={`Image ${index}`} />
+                      </div>
                     </Carousel.Item>
                   ))}
                 </Carousel>

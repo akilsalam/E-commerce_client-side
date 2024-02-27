@@ -26,6 +26,11 @@ import AddProduct from './AdminComponents/Products/AddProducts';
 import Profile from './UserComponents/Profile/Profile';
 import NotFound from './NotFound';
 import Orders from './AdminComponents/Orders/Orders';
+// <<<<<<< HEAD
+import OtherImages from './AdminComponents/Products/OtherImages';
+import CheckOut from './UserComponents/Home/CheckOut/CheckOut';
+// =======
+// >>>>>>> origin/master
 
 
 function App() {
@@ -71,6 +76,10 @@ function App() {
                   <Route path='/Sunglasses' element={<Categories url="http://localhost:3000/sunglasses" title='Sunglasses' />} />
                   <Route path='/Fragrances' element={<Categories url="http://localhost:3000/fragrances" title='Fragrances' />} />
                   <Route path="/View/:id" element={<View />} />
+{/* <<<<<<< HEAD */}
+                  <Route path='/checkout/:id' element={<CheckOut/>}/>
+=======
+{/* >>>>>>> origin/master */}
                   <Route path='*' element={<NotFound/>}/>
                   </Routes>
                 <Footer />
@@ -97,6 +106,10 @@ function App() {
           <Route path='products' element={<Products/>}/>
           <Route path='editProduct/:id' element={<EditProduct/>}/>
           <Route path='addProduct' element={<AddProduct/>}/>
+{/* <<<<<<< HEAD */}
+          <Route path='otherImages/:id' element={<OtherImages/>}/>
+{/* ======= */}
+{/* >>>>>>> origin/master */}
           <Route path='orders' element={<Orders/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>

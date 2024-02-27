@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button, Spinner } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Users.css'
@@ -11,6 +11,7 @@ import { FaUsers } from "react-icons/fa";
 const Users = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -62,16 +63,35 @@ const Users = () => {
     }
   };
 
+    // Filter products based on the first letters in title, brand, and category
+    const filteredUsers = data.filter(user =>
+      user.first_name.toLowerCase().startsWith(searchTerm.toLowerCase()) ||
+      user.email.toLowerCase().startsWith(searchTerm.toLowerCase()) ||
+      user.phone.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
   return (
     <div>
       <div  >
         <h1 className="userHead"><FaUsers />Users</h1>
-        <div className="table-responsive" style={{ marginRight: '100px' }}>
+        <div className="table-responsive" style={{ height:'85vh' }}>
           <div className='userAdd'>
+          <div className="input-group">
+            <div className="form-outline" data-mdb-input-init>
+              <input
+                type="search"
+                id="form1"
+                placeholder="Search Users"
+                className="form-control position-relative pl-5"
+                style={{ paddingLeft: '2rem' }}
+                onChange={(e) => setSearchTerm(e.target.value)}
+              />
+              <i className="fas fa-search position-absolute start-0" style={{ top: '50%', transform: 'translateY(-50%)', paddingLeft: '12px' }}></i>
+            </div>
+          </div>
             <Button onClick={addUser} variant="primary"><TiUserAdd /></Button>{' '}
           </div>
-          <Table bordered hover size="sm" responsive="sm" style={{ backgroundColor: '#D9D9D9' }}>
-
+          <Table bordered hover size="sm" responsive="sm" className='table'>
             <thead>
               <tr>
                 <th>No</th>
@@ -88,7 +108,8 @@ const Users = () => {
               </tr>
             </thead>
             <tbody>
-              {data?.map((user, index) => (
+      {loading && <Spinner animation='border' role='status'></Spinner>}
+              {filteredUsers?.map((user, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
                   <td>{user.first_name}</td>

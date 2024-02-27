@@ -1,30 +1,28 @@
-.AddProductPage{
+.AddProductPage {
     justify-content: center;
     display: flex;
 }
 
-.AddProductDiv{
+.AddProductDiv {
     width: 70%;
+    max-height: 600px; /* Set a maximum height for the div */
+    overflow-y: auto; /* Enable vertical scrolling */
     background-color: #d9d9d9;
     border-radius: 25px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.AddProductHead{
+.AddProductHead {
     text-align: center;
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.Rows{
+.Rows {
     padding-left: 1rem;
     padding-right: 1rem;
 }
 
-.ProductInputDiv{
-
-}
-
-.ProductInput{
+.ProductInput {
     width: 100%;
     height: 35px;
     border-radius: 5px;
@@ -33,7 +31,7 @@
     outline: none;
 }
 
-textarea{
+textarea {
     width: 100%;
     border-radius: 5px;
     border: 1px solid #ccc;
@@ -41,14 +39,14 @@ textarea{
     outline: none;
 }
 
-.form-group{
+.form-group {
     margin: 0;
 }
 
-.BtnDiv{
+.BtnDiv {
     margin: 1rem;
 }
 
-.AddProductBtn{
+.AddProductBtn {
     width: 100%;
 }

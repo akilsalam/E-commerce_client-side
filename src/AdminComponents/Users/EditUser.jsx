@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { Link } from 'react-router-dom';
-import { Form, Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import './EditUser.css'
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const EditUser = () => {
   const [firstName, setFirstName] = useState('');
@@ -86,9 +86,9 @@ const EditUser = () => {
     }
   };
   return (
-    <div className="SignupPage">
-      <div className="SignupDiv">
-        <div className="logoImg pt-5">
+    <div className="EditUserPage">
+      <div className="EditUserDiv">
+        <div className="EditUserHead pt-2">
           <h1>Edit User</h1>
         </div>
         <form onSubmit={handleSubmit}>
@@ -177,7 +177,12 @@ const EditUser = () => {
                   State
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="state" value={state} onChange={(e) => setState(e.target.value)} />
+                  <select className="Input" id="state" value={state} onChange={(e) => setState(e.target.value)}>
+                    <option value="">Select your State</option>
+                    <option value="Kerala">Kerala</option>
+                    <option value="TamilNadu">TamilNadu</option>
+                    <option value="Kannada">Kannada</option>
+                  </select>
                 </div>
               </div>
             </div>
@@ -187,7 +192,17 @@ const EditUser = () => {
                   Phone no
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} />
+                <PhoneInput
+                    inputProps={{
+                      name: 'phone',
+                      required: true,
+                      autoFocus: true,
+                    }}
+                    country="in"
+                    value={phone}
+                    onChange={(value) => setPhone(value)}
+                  />
+                  {/* <input className="Input" type="text" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} /> */}
                 </div>
               </div>
             </div>

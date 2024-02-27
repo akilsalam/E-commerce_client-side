@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import { Navbar, Container } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
@@ -18,19 +18,19 @@ import logo from '../../Images/icon.svg'
 const NavBar = () => {
   const navigate = useNavigate()
   const [isMenuOpen, setMenuOpen] = useState(false);
-  const [profile,setProfile] = useState(false)
+  const [profile, setProfile] = useState(false)
   const user = localStorage.getItem('ShipShopUserName')
   const userPhone = localStorage.getItem('ShipShopUserPhone')
-  
-  const toggleProfile = () =>{
+
+  const toggleProfile = () => {
     setProfile(!profile);
   }
   const ProfileContent = () => (
     <div className="custom-menu-content">
-    <ul>
-      <Link style={{color:'black',textDecoration:'none'}} to={'/profile'}><li><CgProfile />My Profile</li></Link>
-    <li onClick={logOut}><MdOutlineLogout />LogOut</li>
-    </ul>
+      <ul>
+        <Link style={{ color: 'black', textDecoration: 'none' }} to={'/profile'}><li><CgProfile />My Profile</li></Link>
+        <li onClick={logOut}><MdOutlineLogout />LogOut</li>
+      </ul>
     </div>
   );
   const toggleMenu = () => {
@@ -38,82 +38,77 @@ const NavBar = () => {
   };
   const MenuContent = () => (
     <div className="custom-menu-content">
-    <ul>
-      <Link style={{color:'black',textDecoration:'none'}} to={'/settings'}><li><IoSettingsOutline /> Settings</li></Link>
-    </ul>
+      <ul>
+        <Link style={{ color: 'black', textDecoration: 'none' }} to={'/settings'}><li><IoSettingsOutline /> Settings</li></Link>
+      </ul>
     </div>
   );
-  
+
   const logOut = () => {
     const userConfirmed = window.confirm('Are you sure you want to Log Out?');
 
     if (userConfirmed) {
-        localStorage.removeItem('ShipShopUserName');
-        localStorage.removeItem('ShipShopUserPhone')
-        window.location.reload();
+      localStorage.removeItem('ShipShopUserName');
+      localStorage.removeItem('ShipShopUserPhone')
+      window.location.reload();
     }
-}
+  }
 
   return (
-<div>
-  <Navbar expand="md" className="Navbar">
-    <Container fluid className='container'>
-      <Navbar.Brand href="/" className='brand'>
-        <img src={logo} alt="" width={'50px'} />
-      </Navbar.Brand>
-
-      <Navbar.Toggle aria-controls="responsive-navbar-nav" />
-      <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-        <div className="search-container">
-          <CiSearch className="search-icon" />
-          <input className='searchBar ' type="text" placeholder="Search.." />
-        </div>
-
-
-        <Link className="Menus" style={{ padding: '0.8rem' }} to={'/'}>
-          <div>
-            <IoHomeOutline />
-            <span>Home</span>
-          </div>
-        </Link>
-        {/* {user || userPhone ? ( */}
-          <>
-            <Link className="Menus" style={{ padding: '0.8rem' }} to={'/cart'}>
-              <div>
-                <BsCart3 /><span>Cart</span>
-              </div>
-            </Link>
-            <Link className="Menus" style={{ padding: '0.8rem' }} to={'/wishList'}>
-              <div>
-                <FaRegHeart /><span>Wishlist</span>
-              </div>
-            </Link>
-          </>
-        {/* // ) : null} */}
-        {user || userPhone ? (
-          <>
-            <Link onClick={toggleProfile} className="profile text-dark" style={{ padding: '0.8rem' }}>
-              <div >
-                <span><CgProfile className='fs-4 ' /></span>
-                {profile && <ProfileContent />}
-              </div>
-            </Link>
-          </>
-        ) : (
-          <Link className="Menus" style={{ padding: '0.8rem' }} to={'/login'}>
-            <div>
-              <CgProfile /><span>Login</span>
+    <div>
+      <Navbar expand="md" className="Navbar">
+        <Container fluid className='container'>
+          <Navbar.Brand href="/" className='brand'>
+            <img src={logo} alt="" width={'50px'} />
+          </Navbar.Brand>
+          <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+          <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
+            <div className="search-container">
+              <CiSearch className="search-icon" />
+              <input className='searchBar' type="text" placeholder="Search Products..." />
             </div>
-          </Link>
-        )}
-        <div className="menuBtn" style={{ marginLeft: '1rem', padding: '0.8rem' }} onClick={toggleMenu}>
-          <CiMenuKebab />
-          {isMenuOpen && <MenuContent />}
-        </div>
-      </Navbar.Collapse>
-    </Container>
-  </Navbar>
-</div>
+            <Link className="Menus" style={{ padding: '0.8rem' }} to={'/'}>
+              <div>
+                <IoHomeOutline />
+                <span>Home</span>
+              </div>
+            </Link>
+            <>
+              <Link className="Menus" style={{ padding: '0.8rem' }} to={'/cart'}>
+                <div>
+                  <BsCart3 /><span>Cart</span>
+                </div>
+              </Link>
+              <Link className="Menus" style={{ padding: '0.8rem' }} to={'/wishList'}>
+                <div>
+                  <FaRegHeart /><span>Wishlist</span>
+                </div>
+              </Link>
+            </>
+            {user || userPhone ? (
+              <>
+                <Link onClick={toggleProfile} className="Menus text-dark" style={{ padding: '0.8rem' }}>
+                  <div >
+                    <span><CgProfile className='fs-4 ' /></span>
+                    {profile && <ProfileContent />}
+                  </div>
+                </Link>
+              </>
+            ) : (
+              <Link className="Menus" style={{ padding: '0.8rem' }} to={'/login'}>
+                <div>
+                  <CgProfile /><span>Login</span>
+                </div>
+              </Link>
+            )}
+            <div className="menuBtn" style={{ marginLeft: '1rem', padding: '0.8rem' }} onClick={toggleMenu}>
+              <CiMenuKebab />
+              {isMenuOpen && <MenuContent />}
+            </div>
+          </Navbar.Collapse>
+        </Container>
+      </Navbar>
+    </div>
 
   );
 };

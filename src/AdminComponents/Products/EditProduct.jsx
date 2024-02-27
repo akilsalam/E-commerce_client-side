@@ -59,33 +59,52 @@ const EditProduct = () => {
     return response;
   };
 
-  const handleThumbnailChange = (e) => {
-    setThumbnail(e.target.files[0]);
-  };
+  const [thumbnailPreview, setThumbnailPreview] = useState(null);
 
+  // ... (existing code)
+
+  const handleThumbnailChange = (e) => {
+    const file = e.target.files[0];
+  
+    // Convert file to base64
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64String = reader.result.split(',')[1];
+      setThumbnail(base64String); // Set the base64 string to state
+      setThumbnailPreview(reader.result); // Set the file preview
+    };
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  };
+  
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
-    const formData = new FormData();
-    formData.append('name', name);
-    formData.append('brand', brand);
-    formData.append('description', description);
-    formData.append('category', category);
-    formData.append('price', price);
-    formData.append('discountPercentage', discountPercentage);
-    formData.append('stock', stock);
-    formData.append('thumbnail', thumbnail);
-
+  
+    const productData = {
+      name,
+      brand,
+      description,
+      category,
+      price,
+      discountPercentage,
+      stock,
+      thumbnail,
+    };
+  
     try {
       const response = await fetch(`http://localhost:3000/admin/editProduct/${productId}`, {
         method: 'POST',
-        body: formData,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(productData),
       });
-
+  
       if (response.ok) {
         console.log('Product updated successfully');
-        navigate('/admin/products')
+        navigate('/admin/products');
       } else {
         console.error('Failed to update product');
       }
@@ -93,6 +112,7 @@ const EditProduct = () => {
       console.error('Error:', error);
     }
   };
+  
 
   return (
     <div className='EditProductPage'>
@@ -135,12 +155,17 @@ const EditProduct = () => {
           </div>
           <div className="Rows row flex-wrap">
             <div className="col-md-6">
-              <div className="form-group">
-                <label className="Inputlabel" htmlFor="firstname" >
-                  Category
-                </label>
-                <div className="ProductInputDiv">
-                  <select className="ProductInput" type="text" id="firstname" value={category} onChange={(e)=>setCategory(e.target.value)} >
+  <div className="form-group">
+    <label className="Inputlabel" htmlFor="category">
+      Category
+    </label>
+    <div className="ProductInputDiv">
+      <select
+        className="ProductInput"
+        id="category"
+        value={category}
+        onChange={(e) => setCategory(e.target.value)}
+      >
                     <option value="">Select Your Category</option>
                     <option value="Appliances">Appliances</option>
                     <option value="Automotives">Automotives</option>
@@ -148,6 +173,7 @@ const EditProduct = () => {
                     <option value="Beauty or Toys">Beauty or Toys</option>
                     <option value="Electronics">Electronics</option>
                     <option value="Fashions">Fashions</option>
+                    <option value="Sunglasses">Sunglasses</option>
                     <option value="Fragrances">Fragrances</option>
                     <option value="Grocery">Grocery</option>
                     <option value="Home Furniture">Home Furniture</option>
@@ -162,10 +188,12 @@ const EditProduct = () => {
                     <option value="Womens Footwear">Womens Footwear</option>
                     <option value="Womens Jewellery">Womens Jewellery</option>
                     <option value="Womens Watches">Womens Watches</option>
-                  </select>
-                </div>
-              </div>
-            </div>
+        {/* Add other options here */}
+      </select>
+    </div>
+  </div>
+</div>
+
             <div className="col-md-6">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="price">
@@ -219,7 +247,10 @@ const EditProduct = () => {
     <div className="form-group">
       <div className="ProductInputDiv" style={{width:'100px'}}>
         <img
-          src={thumbnail}
+          src={thumbnail && thumbnail.startsWith('http')
+          ?  thumbnail
+          : `data:image/jpeg;base64,${thumbnail}`
+        }
           alt=""
           className="img-fluid"
         />
