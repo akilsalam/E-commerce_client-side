@@ -26,11 +26,10 @@ import AddProduct from './AdminComponents/Products/AddProducts';
 import Profile from './UserComponents/Profile/Profile';
 import NotFound from './NotFound';
 import Orders from './AdminComponents/Orders/Orders';
-// <<<<<<< HEAD
 import OtherImages from './AdminComponents/Products/OtherImages';
+import OrderPage from './UserComponents/Home/OrderPage/OrderPage';
 import CheckOut from './UserComponents/Home/CheckOut/CheckOut';
-// =======
-// >>>>>>> origin/master
+import Rating from './UserComponents/Home/CheckOut/Rating';
 
 
 function App() {
@@ -76,11 +75,11 @@ function App() {
                   <Route path='/Sunglasses' element={<Categories url="http://localhost:3000/sunglasses" title='Sunglasses' />} />
                   <Route path='/Fragrances' element={<Categories url="http://localhost:3000/fragrances" title='Fragrances' />} />
                   <Route path="/View/:id" element={<View />} />
-{/* <<<<<<< HEAD */}
+                  <Route path='/orderPage/:id' element={<OrderPage/>}/>
                   <Route path='/checkout/:id' element={<CheckOut/>}/>
-=======
-{/* >>>>>>> origin/master */}
+                  <Route path='/rating/:id' element={<Rating/>}/>
                   <Route path='*' element={<NotFound/>}/>
+
                   </Routes>
                 <Footer />
               </>

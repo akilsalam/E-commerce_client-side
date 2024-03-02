@@ -84,14 +84,30 @@
 
 .custom-menu-content {
   position: absolute;
-  top: 100%; /* Place the menu below the Navbar */
-  right: 0;
-  background-color: #fff; /* Set the background color */
-  border: 1px solid #ccc; /* Add a border for style */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow for a subtle effect */
-  padding: 10px; /* Add padding for better spacing */
-  z-index: 1000; /* Set a higher z-index to ensure it appears above other elements */
+  top: calc(100%);
+  left: 1; 
+  background-color: #fff;
+  border: 1px solid #ccc;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  z-index: 1000;
 }
+.custom-menu-content ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.custom-menu-content li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.custom-menu-content li:hover {
+  background-color: #f0f0f0; 
+}
+
 
 .custom-menu-content ul {
   list-style-type: none;
@@ -102,9 +118,9 @@
 .custom-menu-content li {
   padding: 8px;
   cursor: pointer;
-  transition: background-color 0.3s ease; /* Add a smooth transition effect */
+  transition: background-color 0.3s ease; 
 }
 
 .custom-menu-content li:hover {
-  background-color: #f0f0f0; /* Change background color on hover */
+  background-color: #f0f0f0; 
 }

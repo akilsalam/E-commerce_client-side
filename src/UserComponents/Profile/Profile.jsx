@@ -4,6 +4,8 @@ import { BiUser } from "react-icons/bi";
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -11,6 +13,7 @@ const Profile = () => {
   const [lastName,setLastName] = useState('')
   const [address,setAddress] = useState('')
   const [email,setEmail] = useState('')
+  const [phone,setPhone] = useState('')
   const [pincode,setPincode] = useState('')
   const [locality,setLocality] = useState('')
   const [town,setTown] = useState('')
@@ -23,30 +26,35 @@ const Profile = () => {
     // Get email and phone from localStorage
     const storedEmail = localStorage.getItem('ShipShopUserName');
     const storedPhone = localStorage.getItem('ShipShopUserPhone');
-    const phoneWithoutPlus = storedPhone.replace('+', '');
-
+  
     // Check if either email or phone is available
     if (storedEmail || storedPhone) {
       // Send a request to the server to fetch the user profile based on email or phone
+  
+      // Add a conditional check for storedPhone
+      const phoneWithoutPlus = storedPhone ? storedPhone.replace('+', '') : '';
+  
       axios.post('http://localhost:3000/profile', { email: storedEmail, phone: phoneWithoutPlus })
         .then(response => {
           // Update the state with the fetched user profile data
           setUserProfile(response.data);
-          setFirstName(response.data.first_name)
-          setLastName(response.data.last_name)
-          setEmail(response.data.email)
-          setPincode(response.data.pincode)
-          setAddress(response.data.address)
-          setLocality(response.data.locality)
-          setState(response.data.state)
-          setTown(response.data.town)
-          setUserId(response.data._id)
+          setFirstName(response.data.first_name);
+          setLastName(response.data.last_name);
+          setEmail(response.data.email);
+          setPhone(response.data.phone);
+          setPincode(response.data.pincode);
+          setAddress(response.data.address);
+          setLocality(response.data.locality);
+          setState(response.data.state);
+          setTown(response.data.town);
+          setUserId(response.data._id);
         })
         .catch(error => {
           console.error('Error fetching user profile:', error);
         });
-      }
-    }, []); // Empty dependency array ensures the useEffect runs only once on component mount
+    }
+  }, []); // Empty dependency array ensures the useEffect runs only once on component mount
+  
 
 
   const handleSubmit = async (e) => {
@@ -94,17 +102,18 @@ const Profile = () => {
   return (
     userProfile ? 
     <div>
-        <div className="row flex-wrap">
-        <div className="col-md-4" style={{height:'100vh'}}>
-              <h1 className='text-center'>My Profile</h1>
+        <div className="row flex-wrap" >
+        <div className="col-md-12" >
             <div className='profileImgDiv'>
               <div className='profileImg'>
-              <BiUser style={{width:'15em',height:'15em',marginTop: '3rem'}}/>
+              <BiUser style={{width:'5em',height:'5em'}}/>
               </div>
-              <p className='text-center'>{userProfile.first_name+" "+userProfile.last_name}</p>
+              <h1 className='text-center'>My Profile</h1>
             </div>
         </div>
-      <div className="col-md-8">
+        <div style={{display:'flex',justifyContent:'center'}}>
+
+      <div className="col-md-10">
             <div className="profileDetailsDiv">
               <form onSubmit={handleSubmit} style={{margin:'1rem'}}>
                 <br />
@@ -149,20 +158,29 @@ const Profile = () => {
                   Email
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="text" id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
+                  <input className="Input" type="text" id="email" disabled value={email} />
                 </div>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="form-group">
-                <label className="Inputlabel" htmlFor="pincode">
-                  Pincode
+            <div className="form-group">
+                <label className="Inputlabel" htmlFor="phone">
+                  Phone no
                 </label>
                 <div className="InputDiv">
-                  <input className="Input" type="number" id="pincode" value={pincode} onChange={(e)=>setPincode(e.target.value)}/>
+                <PhoneInput
+                    inputProps={{
+                      name: 'phone',
+                      required: true,
+                    }}
+                    country="in"
+                    value={phone}
+                    disabled
+                  />
                 </div>
               </div>
             </div>
+            
           </div>
           <div className="row flex-wrap">
             <div className="col-md-6">
@@ -187,6 +205,16 @@ const Profile = () => {
             </div>
           </div>
           <div className="row flex-wrap">
+          <div className="col-md-6">
+              <div className="form-group">
+                <label className="Inputlabel" htmlFor="pincode">
+                  Pincode
+                </label>
+                <div className="InputDiv">
+                  <input className="Input" type="number" id="pincode" value={pincode} onChange={(e)=>setPincode(e.target.value)}/>
+                </div>
+              </div>
+            </div>
             <div className="col-md-6">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="state" >
@@ -199,11 +227,14 @@ const Profile = () => {
             </div>
           </div>
           <br />
+          <div style={{display:'flex',justifyContent:'end'}}>
           <Button type='submit' className='EditBtn' variant='warning'>Edit</Button>
+          </div>
               </form>
             </div>
         </div>
       </div>
+                      </div>
     </div>:navigate('/login')
   );
 }

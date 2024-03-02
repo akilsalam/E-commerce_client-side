@@ -30,6 +30,12 @@ text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border-radius: 10px;
 }
 
+<<<<<<< HEAD
+.ProductDetailBar{
+    /* margin-left: 1.5rem; */
+    margin-bottom: 1rem;
+    
+=======
 .list:hover{
     transform: scale(1.01);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -40,6 +46,7 @@ text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     margin-bottom: 1rem;
     cursor: pointer;
 
+>>>>>>> origin/master
 }
 
 
@@ -51,9 +58,23 @@ text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     cursor: pointer;
     border-radius: 10px;
 }
+<<<<<<< HEAD
+.ProductImg:hover{
+    transform: scale(1.01);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .ProductName{
     padding-top: 2rem;
+    cursor: pointer;
+}
+.ProductName:hover{
+    text-decoration: underline;
+=======
+
+.ProductName{
+    padding-top: 2rem;
+>>>>>>> origin/master
 }
 
 .ProductDetail{

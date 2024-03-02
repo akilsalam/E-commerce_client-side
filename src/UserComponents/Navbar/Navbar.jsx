@@ -17,7 +17,6 @@ import logo from '../../Images/icon.svg'
 
 const NavBar = () => {
   const navigate = useNavigate()
-  const [isMenuOpen, setMenuOpen] = useState(false);
   const [profile, setProfile] = useState(false)
   const user = localStorage.getItem('ShipShopUserName')
   const userPhone = localStorage.getItem('ShipShopUserPhone')
@@ -33,16 +32,6 @@ const NavBar = () => {
       </ul>
     </div>
   );
-  const toggleMenu = () => {
-    setMenuOpen(!isMenuOpen);
-  };
-  const MenuContent = () => (
-    <div className="custom-menu-content">
-      <ul>
-        <Link style={{ color: 'black', textDecoration: 'none' }} to={'/settings'}><li><IoSettingsOutline /> Settings</li></Link>
-      </ul>
-    </div>
-  );
 
   const logOut = () => {
     const userConfirmed = window.confirm('Are you sure you want to Log Out?');
@@ -54,6 +43,7 @@ const NavBar = () => {
     }
   }
 
+
   return (
     <div>
       <Navbar expand="md" className="Navbar">
@@ -63,11 +53,33 @@ const NavBar = () => {
           </Navbar.Brand>
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
-            <div className="search-container">
+            {/* <div className="search-container">
               <CiSearch className="search-icon" />
-              <input className='searchBar' type="text" placeholder="Search Products..." />
-            </div>
-            <Link className="Menus" style={{ padding: '0.8rem' }} to={'/'}>
+              <select className='searchBar' type="text" placeholder="Search Products..." >
+                <option value="">Search...</option>
+                <option value="Appliances" onClick={One}>Appliances</option>
+                    <option value="Automotives">Automotives</option>
+                    <option value="Bags">Bags</option>
+                    <option value="Beauty or Toys">Beauty or Toys</option>
+                    <option value="Electronics">Electronics</option>
+                    <option value="Fashions">Fashions</option>
+                    <option value="Fragrances">Fragrances</option>
+                    <option value="Grocery">Grocery</option>
+                    <option value="Home Furniture">Home Furniture</option>
+                    <option value="Lights">Lights</option>
+                    <option value="Mens Clothes">Mens Clothes</option>
+                    <option value="Mens Footwear">Mens Footwears</option>
+                    <option value="Mens Watches">Mens Watches</option>
+                    <option value="Mobiles">Mobiles</option>
+                    <option value="Sunglasses">Sunglasses</option>
+                    <option value="Two Wheelers">Two Wheelers</option>
+                    <option value="Womens Clothes">Womens Clothes</option>
+                    <option value="Womens Footwear">Womens Footwear</option>
+                    <option value="Womens Jewellery">Womens Jewellery</option>
+                    <option value="Womens Watches">Womens Watches</option>
+              </select>
+            </div> */}
+            <Link className="Menus" style={{ padding: '0.8rem',display:'flex',justifyContent:'center' }} to={'/'}>
               <div>
                 <IoHomeOutline />
                 <span>Home</span>
@@ -101,9 +113,8 @@ const NavBar = () => {
                 </div>
               </Link>
             )}
-            <div className="menuBtn" style={{ marginLeft: '1rem', padding: '0.8rem' }} onClick={toggleMenu}>
-              <CiMenuKebab />
-              {isMenuOpen && <MenuContent />}
+            <div className="menuBtn" style={{ marginLeft: '1rem', padding: '0.8rem' }}>
+            <IoSettingsOutline />
             </div>
           </Navbar.Collapse>
         </Container>

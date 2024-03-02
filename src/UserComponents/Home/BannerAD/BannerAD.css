@@ -4,6 +4,17 @@
 .BannerDiv img{
   width: 100%;
 }
+
+.carousel-control-next{
+  background-color: black;
+  /* color: white; */
+  width: 5rem;
+}
+.carousel-control-prev{
+  background-color: black;
+  /* color: white; */
+  width: 5rem;
+}
   
   /* Media Query for smaller screens */
   @media (max-width: 768px) {

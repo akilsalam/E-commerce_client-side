@@ -9,7 +9,7 @@ const Footer = () => {
           <div className="heading">
             <p>POPULAR LOCATIONS</p>
           </div>
-          <div className="list">
+          <div className="listed">
             <ul className="list-unstyled">
               <li>Kolkata</li>
               <li>Mumbai</li>
@@ -22,7 +22,7 @@ const Footer = () => {
           <div className="heading">
             <p>ABOUT US</p>
           </div>
-          <div className="list">
+          <div className="listed">
             <ul className="list-unstyled">
               <li>About ShipShop Group</li>
               <li>Careers</li>
@@ -35,7 +35,7 @@ const Footer = () => {
           <div className="heading">
             <p>SHIPSHOP</p>
           </div>
-          <div className="list">
+          <div className="listed">
             <ul className="list-unstyled">
               <li>Help</li>
               <li>Sitemap</li>

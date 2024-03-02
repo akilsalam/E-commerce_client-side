@@ -107,7 +107,7 @@ const OfferCards = () => {
       </div>
     </div>
 
-    <div className='col-sm-12 col-md-6 col-lg-4'>
+    <div className='col-sm-12 col-md-12 col-lg-4'>
       <div className='card'>
         <h1 className='cardHead'> Other need Items</h1>
         <div className='cardImgDiv'>

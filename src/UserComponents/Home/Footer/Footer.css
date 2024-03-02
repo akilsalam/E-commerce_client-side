@@ -27,12 +27,12 @@ body {
     font-weight: bolder;
 }
 
-.footerParentDiv .list {
+.footerParentDiv .listed {
     list-style: none;
     padding: 0;
 }
 
-.footerParentDiv .list ul {
+.footerParentDiv .listed ul {
     margin: 0;
     padding: 0;
 }

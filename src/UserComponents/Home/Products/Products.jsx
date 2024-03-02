@@ -10,6 +10,7 @@ import { GrStatusGood } from "react-icons/gr";
 const Products = (prop) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = localStorage.getItem('ShipShopUserName') || localStorage.getItem('ShipShopUserPhone')
   const navigate = useNavigate();
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
@@ -48,59 +49,80 @@ const Products = (prop) => {
     navigate(`/view/${productId}`);
   };
 
-  const toWishList = (product) => {
-    const storedValue = localStorage.getItem('WishList');
-    let existingWishList = [];
+  // const toWishList = async (product) => {
+  //   const storedValue = localStorage.getItem('WishList');
+  //   let existingWishList = [];
 
-    if (storedValue) {
-      try {
-        existingWishList = JSON.parse(storedValue);
-      } catch (error) {
-        console.error('Error parsing stored value:', error);
-      }
-    }
+  //   if (storedValue) {
+  //     try {
+  //       existingWishList = JSON.parse(storedValue);
+  //     } catch (error) {
+  //       console.error('Error parsing stored value:', error);
+  //     }
+  //   }
 
-    const existingProductIndex = existingWishList.findIndex((item) => item._id === product._id);
+  //   const existingProductIndex = existingWishList.findIndex((item) => item._id === product._id);
 
-    if (existingProductIndex === -1) {
-      // Product is not in wishlist, add it
-      existingWishList.push({
-        _id: product._id,
-        title: product.title,
-        description: product.description,
-        price: product.price,
-        discountPercentage:product.discountPercentage,
-        rating:product.rating,
-        stock:product.stock,
-        brand:product.brand,
-        category:product.category,
-        thumbnail:product.thumbnail,
-        images:product.images
-      });
+  //   if (existingProductIndex === -1) {
+  //     // Product is not in wishlist, add it
+  //     existingWishList.push({
+  //       _id: product._id,
+  //       title: product.title,
+  //       description: product.description,
+  //       price: product.price,
+  //       discountPercentage:product.discountPercentage,
+  //       rating:product.rating,
+  //       stock:product.stock,
+  //       brand:product.brand,
+  //       category:product.category,
+  //       thumbnail:product.thumbnail,
+  //       images:product.images
+  //     });
 
-      // Set isAdded state for the added product
-      setAddedProducts([...addedProducts, product._id]);
+  //     // Set isAdded state for the added product
+  //     setAddedProducts([...addedProducts, product._id]);
 
-      // Show a success notification
-      setNotificationMessage(`Product added to Wish List!`);
-    } else {
-      // Product is already in wishlist, remove it
-      existingWishList.splice(existingProductIndex, 1);
+  //     // Show a success notification
+  //     setNotificationMessage(`Product added to Wish List!`);
+  //   } else {
+  //     // Product is already in wishlist, remove it
+  //     existingWishList.splice(existingProductIndex, 1);
 
-      // Remove the product from the addedProducts array
-      setAddedProducts(addedProducts.filter((productId) => productId !== product._id));
+  //     // Remove the product from the addedProducts array
+  //     setAddedProducts(addedProducts.filter((productId) => productId !== product._id));
 
-      // Show an info notification
-      setNotificationMessage(`Product removed from Wish List!`);
-    }
+  //     // Show an info notification
+  //     setNotificationMessage(`Product removed from Wish List!`);
+  //   }
+  //   if (user) {
+  //     try {
+  //       // Send data to the server
+  //       await axios.post(
+  //         'http://localhost:3000/wishlist',
+  //         {
+  //           user: user,
+  //           items: existingWishList,
+  //         },
+  //         {
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //           },
+  //         }
+  //       );
+  //     } catch (error) {
+  //       console.error('Error sending cart data to the server:', error);
+  //       // Handle error as needed
+  //     }
+  //   }else{ 
 
-    localStorage.setItem('WishList', JSON.stringify(existingWishList));
-    setShowNotification(true);
+  //   localStorage.setItem('WishList', JSON.stringify(existingWishList));
+  //   setShowNotification(true);
+  //   }
 
-    setTimeout(() => {
-      setShowNotification(false);
-    }, 3000);
-  };
+  //   setTimeout(() => {
+  //     setShowNotification(false);
+  //   }, 3000);
+  // };
 
   return (
     <div>
@@ -120,12 +142,12 @@ const Products = (prop) => {
                     : `data:image/jpeg;base64,${product.thumbnail}`
                 }
               />
-              <div className="wish m-3" onClick={() => toWishList(product)}>
+              {/* <div className="wish m-3" onClick={() => toWishList(product)}>
                 {addedProducts.includes(product._id) ? 
                   <IoMdHeart className='fs-4'style={{color:'red'}}/> :
                    <FaRegHeart className='fs-4' />
                 }
-              </div>
+              </div> */}
               <Card.Body className='productBody'>
                 <Card.Title className='productTitle'>{product.title}</Card.Title>
                 <Card.Text className='productText'>{product.description}</Card.Text>

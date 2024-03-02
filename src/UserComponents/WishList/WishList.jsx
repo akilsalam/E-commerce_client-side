@@ -8,30 +8,84 @@ import axios from 'axios';
 const WishList = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = localStorage.getItem('ShipShopUserPhone') || localStorage.getItem('ShipShopUserName');
   const navigate = useNavigate();
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('http://localhost:3000/wishlist');
-        console.log(response.data);
+    // Modify the fetchCartData function to check if response.data is an array
+const fetchCartData = async () => {
+  if (user) {
+    try {
+      const response = await axios.get(`http://localhost:3000/wishlist/${user}`);
+      // Check if response.data is an array before iterating
+      if (Array.isArray(response.data)) {
         setData(response.data);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+      } else {
+        console.error('Invalid response format from the server:', response.data);
+        // Handle error as needed
+      }
+    } catch (error) {
+      console.error('Error fetching cart data from the server:', error);
+      // Handle error as needed
+    }
+  } else {
+        // User does not exist, fetch cart data from local storage
+        const storedData = JSON.parse(localStorage.getItem('WishList')) || [];
+        // Initialize quantity state with item ids and their quantities
+        // const initialQuantityState = {};
+        // storedCartData.forEach((item) => {
+        //   initialQuantityState[item._id] = 1;
+        // });
+        // setQuantity(initialQuantityState);
+        setData(storedData);
       }
     };
+  
+    fetchCartData();
+  }, [user]);
 
-    fetchData();
-  }, []);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3000/wishlist');
+  //       console.log(response.data);
+  //       setData(response.data);
+  //     } catch (error) {
+  //       console.error('Error fetching data:', error);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
 
-  const deleteWishData = (productId) => {
-    const confirmation = window.confirm('This deletes the data from the wishlist');
-    if (confirmation) {
-      const updatedWishData = data.filter((item) => item._id !== productId);
-      setData(updatedWishData);
-      localStorage.setItem('WishList', JSON.stringify(updatedWishData));
+  //   fetchData();
+  // }, []);
+
+  const deleteWishData = async (productId) => {
+    const confirmation = window.confirm('This deletes the data from the cart');
+    if (user) {
+        if(confirmation){
+        try {
+          // If user is available, send a request to the server to delete the cart item
+          await axios.delete(`http://localhost:3000/wishlist/${productId}`, {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            data: { user: user },
+          });
+          // If successful, update the state or perform any necessary actions
+          window.location.reload()
+          console.log('Wishlist item deleted from the server');
+        } catch (error) {
+          console.error('Error deleting cart item from the server:', error);
+          // Handle error as needed
+        }
+      }
+    } else {
+      if (confirmation) {
+        const updatedWishListData = data.filter((item) => item._id !== productId);
+        setData(updatedWishListData);
+        localStorage.setItem('WishList', JSON.stringify(updatedWishListData));
+      }
     }
   };
 

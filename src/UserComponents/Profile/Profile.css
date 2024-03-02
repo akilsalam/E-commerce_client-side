@@ -1,11 +1,9 @@
 .profileImgDiv{
     margin-top: 1rem;
-    margin-left: 2rem;
-    width: 90%;
-    height: 25rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
     background-color: #d9d9d9;
-    border-radius: 25px;
-    margin-bottom: 0;
+    border-radius: 15px;
 }
 
 .profileImg{
@@ -23,5 +21,5 @@
 }
 
 .EditBtn{
-    width: 100%;
+    width: 20%;
 }

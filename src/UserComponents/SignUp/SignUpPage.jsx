@@ -186,7 +186,6 @@ const SignupPage = () => {
   onChange={(value) => setPhone(value)}
 />
 
-                  {/* <input className="Input" type="phone" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required/> */}
                 </div>
               </div>
             </div>
@@ -195,7 +194,7 @@ const SignupPage = () => {
             <div className="col-md-6">
               <div className="form-group">
                 <label className="Inputlabel" htmlFor="username">
-                  Username
+                  Email
                 </label>
                 <div className="InputDiv">
                   <input className="Input" type="text" id="username" onChange={(e) => setEmail(e.target.value)} required/>

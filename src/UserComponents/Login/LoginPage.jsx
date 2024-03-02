@@ -1,21 +1,21 @@
 import React, { useState, useRef } from 'react';
 import axios from 'axios';
 import { Alert, Tab, Tabs } from 'react-bootstrap';
-import './LoginPage.css'
-import logo from '../../Images/icon.svg'
+import './LoginPage.css';
+import logo from '../../Images/icon.svg';
 import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
-// import Input from 'react-phone-number-input/input'
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../firebase';
 import ReCAPTCHA from 'react-google-recaptcha';
 
 const Login = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+
   const GoSignUp = () => {
-    navigate('/signup')
-  }
+    navigate('/signup');
+  };
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -23,34 +23,67 @@ const Login = () => {
   const passwordRef = useRef();
   const [errorMessage, setErrorMessage] = useState('');
 
-
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
       // Assuming you have a server endpoint that validates the login
-      const response = await axios.post('http://localhost:3000/login', {
-        email,
-        password,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await axios.post(
+        'http://localhost:3000/login',
+        {
+          email,
+          password,
         },
-      });
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
 
       if (response.status === 200) {
         const data = response.data;
         console.log(data);
         if (data.success) {
-          if (emailRef.current.value === email && passwordRef.current.value === password) {
-            localStorage.setItem("ShipShopUserName", email);
+          if (
+            emailRef.current.value === email &&
+            passwordRef.current.value === password
+          ) {
+            localStorage.setItem('ShipShopUserName', email);
+
+            const cart = JSON.parse(localStorage.getItem('Cart')) || [];
+            const loggedInUser = localStorage.getItem('ShipShopUserName')
+      
+            if (cart.length > 0) {
+              // Assuming you want to send all items in the cart to the server
+              const response = await axios.post(
+                'http://localhost:3000/cart',
+                {
+                  user: loggedInUser,
+                  items: cart,
+                },
+                {
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                }
+              );
+      
+              console.log('Cart data sent to the server:', response.data);
+              if(response){
+                localStorage.removeItem('Cart')
+              }
+            }
+
+            // Navigate to the specified URL
+            navigate(data.redirectUrl);
+
+      
+
+
+            // Reload the page after a short delay
+            window.location.reload();
           }
-
-          // Navigate to the specified URL
-          navigate(data.redirectUrl);
-
-          // Reload the page after a short delay
-          window.location.reload();
         } else {
           setErrorMessage(data.message || 'User Name Not Found!!🧐');
         }
@@ -64,12 +97,10 @@ const Login = () => {
     }
   };
 
-
-
   const [phone, setPhone] = useState('');
   const [user, setUser] = useState(null);
   const [otp, setOtp] = useState('');
-  const phoneRef = useRef()
+  const phoneRef = useRef();
   const recaptchaVerifierRef = useRef(null);
 
   // Example: Add console logs for debugging
@@ -79,21 +110,33 @@ const Login = () => {
     try {
       console.log('Sending OTP...');
       try {
-        const response = await axios.post('http://localhost:3000/checkPhoneNumber', {
-          phone: phone.replace(/\D/g, ''), // Remove non-numeric characters
-        }, {
-          headers: {
-            'Content-Type': 'application/json',
+        const response = await axios.post(
+          'http://localhost:3000/checkPhoneNumber',
+          {
+            phone: phone.replace(/\D/g, ''), // Remove non-numeric characters
           },
-        });
+          {
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
+        );
 
         if (response.status === 200) {
           const data = response.data;
           console.log(data);
           if (data.exists) {
             // Continue with the OTP sending logic
-            recaptchaVerifierRef.current = new RecaptchaVerifier(auth, 'recaptcha', {});
-            const confirmation = await signInWithPhoneNumber(auth, phone, recaptchaVerifierRef.current);
+            recaptchaVerifierRef.current = new RecaptchaVerifier(
+              auth,
+              'recaptcha',
+              {}
+            );
+            const confirmation = await signInWithPhoneNumber(
+              auth,
+              phone,
+              recaptchaVerifierRef.current
+            );
             setUser(confirmation);
             console.log('OTP sent successfully:', confirmation);
           } else {
@@ -112,34 +155,77 @@ const Login = () => {
     }
   };
 
-
   const verifyOtp = async (e) => {
     e.preventDefault();
-
+  
     try {
       console.log('Verifying OTP...');
       if (user) {
         const data = await user.confirm(otp);
         const phone = data._tokenResponse.phoneNumber;
-        localStorage.setItem("ShipShopUserPhone", phone);
-        navigate('/')
+        localStorage.setItem('ShipShopUserPhone', phone);
+  
+        const cart = JSON.parse(localStorage.getItem('Cart')) || [];
+        const wish = JSON.parse(localStorage.getItem('WishList')) || [];
+        const loggedInUser = localStorage.getItem('ShipShopUserPhone')
+  
+        if (cart.length > 0) {
+          // Assuming you want to send all items in the cart to the server
+          const response = await axios.post(
+            'http://localhost:3000/cart',
+            {
+              user: loggedInUser,
+              items: cart,
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if(response){
+            localStorage.removeItem('Cart')
+          }
+  
+          console.log('Cart data sent to the server:', response.data);
+        }
+        if (wish.length > 0) {
+          // Assuming you want to send all items in the cart to the server
+          const response = await axios.post(
+            'http://localhost:3000/wishlist',
+            {
+              user: loggedInUser,
+              items: wish,
+            },
+            {
+              headers: {
+                'Content-Type': 'application/json',
+              },
+            }
+          );
+          if(response){
+            localStorage.removeItem('WishList')
+          }
+  
+          console.log('WishList data sent to the server:', response.data);
+        }
+  
+        navigate('/');
         console.log('Otp verification successful:', data);
-        // You may perform additional actions after successful verification
       } else {
         console.error('User object is null or undefined');
-        // Handle the case where the user object is not properly set
       }
     } catch (error) {
       console.error('Error verifying OTP:', error.message);
-      // Handle error gracefully
     }
   };
+  
 
   return (
     <div className='LoginPage'>
       <div className='LoginDiv'>
         <div className='logoImg'>
-          <img className='logo' src={logo} alt='Logo'/>
+          <img className='logo' src={logo} alt='Logo' />
         </div>
         <Tabs
           style={{ display: 'flex', justifyContent: 'center' }}
@@ -154,14 +240,25 @@ const Login = () => {
                   {errorMessage}
                 </Alert>
               )}
-              {/* <form> */}
               {user ? null : (
                 <>
-                  <p style={{ display: 'flex', justifyContent: 'center' }} htmlFor='username'>
+                  <p
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                    }}
+                    htmlFor='username'
+                  >
                     Enter your Mobile number
                   </p>
-                  <form action="" onSubmit={sendOtp}>
-                    <div className='form-group ' style={{ display: 'flex', justifyContent: 'center' }}>
+                  <form action='' onSubmit={sendOtp}>
+                    <div
+                      className='form-group '
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                      }}
+                    >
                       <div className='InputDiv'>
                         <PhoneInput
                           defaultCountry='in'
@@ -180,8 +277,17 @@ const Login = () => {
                         />
                       </div>
                     </div>
-                    <div style={{ display: 'flex', justifyContent: 'center' }} id='recaptcha'></div>
-                    <button className='submitBtn btn btn-primary mt-5' type='submit'>
+                    <div
+                      style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                      }}
+                      id='recaptcha'
+                    ></div>
+                    <button
+                      className='submitBtn btn btn-primary mt-5'
+                      type='submit'
+                    >
                       Send OTP
                     </button>
                   </form>
@@ -189,9 +295,12 @@ const Login = () => {
               )}
               {user ? (
                 <>
-                  <form action="" onSubmit={verifyOtp}>
+                  <form action='' onSubmit={verifyOtp}>
                     <div className='form-group'>
-                      <label className='Inputlabel' htmlFor='username'>
+                      <label
+                        className='Inputlabel'
+                        htmlFor='username'
+                      >
                         Enter your OTP
                       </label>
                       <div className='InputDiv'>
@@ -203,13 +312,15 @@ const Login = () => {
                         />
                       </div>
                     </div>
-                    <button className='submitBtn btn btn-primary' type='submit'>
+                    <button
+                      className='submitBtn btn btn-primary'
+                      type='submit'
+                    >
                       Verify OTP
                     </button>
                   </form>
                 </>
               ) : null}
-              {/* </form> */}
             </div>
           </Tab>
           <Tab eventKey='EmailValid' title='Login with Email'>
@@ -252,7 +363,10 @@ const Login = () => {
                     />
                   </div>
                 </div>
-                <button className='submitBtn btn btn-primary' type='submit'>
+                <button
+                  className='submitBtn btn btn-primary'
+                  type='submit'
+                >
                   Login to ShipShop
                 </button>
               </form>
@@ -264,13 +378,17 @@ const Login = () => {
         </p>
         <div className='SignUpDiv'>
           <p className=''>_________New To ShipShop________</p>
-          <button className='SignUpBtn btn btn-success' type='button' onClick={GoSignUp}>
+          <button
+            className='SignUpBtn btn btn-success'
+            type='button'
+            onClick={GoSignUp}
+          >
             Create Your ShipShop Account
           </button>
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default Login;
