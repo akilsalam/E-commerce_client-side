@@ -105,10 +105,7 @@ function App() {
           <Route path='products' element={<Products/>}/>
           <Route path='editProduct/:id' element={<EditProduct/>}/>
           <Route path='addProduct' element={<AddProduct/>}/>
-{/* <<<<<<< HEAD */}
           <Route path='otherImages/:id' element={<OtherImages/>}/>
-{/* ======= */}
-{/* >>>>>>> origin/master */}
           <Route path='orders' element={<Orders/>}/>
           <Route path='*' element={<NotFound/>}/>
         </Routes>
