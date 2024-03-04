@@ -39,7 +39,7 @@ const NavBar = () => {
     if (userConfirmed) {
       localStorage.removeItem('ShipShopUserName');
       localStorage.removeItem('ShipShopUserPhone')
-      window.location.reload();
+      navigate('/')
     }
   }
 

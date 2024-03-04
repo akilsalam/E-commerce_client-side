@@ -4,6 +4,7 @@ import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { FaRegHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import empty from '../../Images/emptyWishlist.png'
 
 const WishList = () => {
   const [data, setData] = useState([]);
@@ -95,35 +96,45 @@ const fetchCartData = async () => {
         <h1 className='WishHead'>
           <FaRegHeart /> Your Liked Products
         </h1>
-        {data?.map((wishlist) => (
-          <div className="list container-fluid" key={wishlist._id}>
-            <div className="row flex-wrap">
-              <div className="col-md-4">
-                <img
-                  className='ProductImg'
-                  width={'250rem'}
-                  height={'400rem'}
-                  src={
-                    wishlist.thumbnail && wishlist.thumbnail.startsWith('http')
-                      ? wishlist.thumbnail
-                      : `data:image/jpeg;base64,${wishlist.thumbnail}`
-                  }
-                  alt=""
-                />
-              </div>
-              <div className="col-md-4">
-                <h5 className='ProductName'>{wishlist.title}</h5>
-                <p className='ProductDetail'>{wishlist.description}</p>
-                <h5 className='ProductPrice'>&#x20B9; {wishlist.price}</h5>
-              </div>
-              <div className="col-md-4 d-flex flex-column align-items-end mt-3">
-                <div className='deleteDiv'>
-                  <MdOutlineDeleteOutline className="deleteWished fs-3" onClick={() => deleteWishData(wishlist._id)} />
-                </div>
-              </div>
-            </div>
+        {data && data.length > 0 ? (
+  data.map((wishlist) => (
+    <div className="list container-fluid" key={wishlist._id}>
+      <div className="row flex-wrap">
+        <div className="col-md-4">
+          <img
+            className='ProductImg'
+            width={'250rem'}
+            height={'400rem'}
+            src={
+              wishlist.thumbnail && wishlist.thumbnail.startsWith('http')
+                ? wishlist.thumbnail
+                : `data:image/jpeg;base64,${wishlist.thumbnail}`
+            }
+            alt=""
+          />
+        </div>
+        <div className="col-md-4">
+          <h5 className='ProductName'>{wishlist.title}</h5>
+          <p className='ProductDetail'>{wishlist.description}</p>
+          <h5 className='ProductPrice'>&#x20B9; {wishlist.price}</h5>
+        </div>
+        <div className="col-md-4 d-flex flex-column align-items-end mt-3">
+          <div className='deleteDiv'>
+            <MdOutlineDeleteOutline className="deleteWished fs-3" onClick={() => deleteWishData(wishlist._id)} />
           </div>
-        ))}
+        </div>
+      </div>
+    </div>
+  ))
+) : (
+  <>
+    <div style={{ justifyContent: 'center', display: 'flex', marginTop: '5rem', fontSize: '30px', fontWeight: '800', fontFamily: 'cursive' }}>
+      <img width={"400px"} src={empty} alt="" />
+    </div>
+    {/* <h1 style={{ textAlign: 'center' }}>Your Wishlist is Empty</h1> */}
+  </>
+)}
+
       </div>
     </div>
   );

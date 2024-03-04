@@ -7,6 +7,7 @@ import { BsCart3 } from 'react-icons/bs';
 import { Button, Col, Row } from 'react-bootstrap'; // Import Col and Row from react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import empty from '../../Images/emptyCart.webp'
 
 const CartList = () => {
   const [firstName,setFirstName] = useState('')
@@ -249,60 +250,66 @@ const fetchCartData = async () => {
             <BsCart3 /> Carted Products
           </p>
           <div className={styles.CartProducts}>
-            {cartData?.map((cart) => (
-              <>
-                <div className={`${styles.list} container-fluid`}  key={cart._id}>
-                  <div className='row flex-wrap'>
-                    <div onClick={() => View(cart._id)} className={`col-md-4`}>
-                      <img
-                        className={styles.ProductImg}
-                        width={'230rem'}
-                        src={
-                          cart.thumbnail && cart.thumbnail.startsWith('http')
-                            ? cart.thumbnail
-                            : `data:image/jpeg;base64,${cart.thumbnail}`
-                        }
-                        alt=""
-                      />
-                    </div>
-                    <div className={`${styles.ProductDetailBar} col-md-4`}>
-                      <h5 className={styles.ProductName} onClick={() => View(cart._id)}>{cart.title}</h5>
-                      <p className={styles.ProductDetail}>{cart.description}</p>
-                      <div style={{ display: 'flex' }}>
-                        <h5 className='ProductPrice' style={{ textDecoration: 'line-through' }}>
-                          &#x20B9; {cart.price}
-                        </h5>
-                        <span style={{ color: 'green', paddingLeft: '5px' }}>({discountPercentage(cart)}%)Off</span>
-                      </div>
-                      <h5 className='ProductPrice'>&#x20B9; {calculateRestAmountForItem(cart)}</h5>
-                <div>
-                  <CiCirclePlus
-                    className='bg-dark text-white fs-3'
-                    style={{ borderRadius: '100%' ,cursor:'pointer'}}
-                    onClick={() => updateQuantity(cart._id, quantity[cart._id] + 1)}
-                  />
-                  {/* <div > */}
-                  <span style={{backgroundColor:'#fff',paddingLeft:'1rem',paddingRight:'1rem',paddingBottom:'0.5rem',paddingTop:'0.5rem',margin:'0.3rem',borderRadius:'10px',fontWeight:'800'}}>{quantity[cart._id]}</span>
-                  {/* </div> */}
-                  <CiCircleMinus
-                    className='bg-dark text-white fs-3'
-                    style={{ borderRadius: '100%' ,cursor:'pointer'}}
-                    onClick={() => updateQuantity(cart._id, Math.max(1, quantity[cart._id] - 1))}
-                  />
-                </div>
-                    </div>
-                    <div className='col-md-4 d-flex flex-column align-items-end mt-3 mb-3'>
-                      <div className={styles.deleteDiv}>
-                        <MdOutlineDeleteOutline
-                          className={`${styles.deleteCart} fs-3`}
-                          onClick={() => deleteCartData(cart._id)}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            ))}
+          {cartData && cartData.length > 0 ? (
+  cartData.map((cart) => (
+    <div className={`${styles.list} container-fluid`} key={cart._id}>
+      <div className='row flex-wrap'>
+        <div onClick={() => View(cart._id)} className={`col-md-4`}>
+          <img
+            className={styles.ProductImg}
+            width={'230rem'}
+            src={
+              cart.thumbnail && cart.thumbnail.startsWith('http')
+                ? cart.thumbnail
+                : `data:image/jpeg;base64,${cart.thumbnail}`
+            }
+            alt=""
+          />
+        </div>
+        <div className={`${styles.ProductDetailBar} col-md-4`}>
+          <h5 className={styles.ProductName} onClick={() => View(cart._id)}>{cart.title}</h5>
+          <p className={styles.ProductDetail}>{cart.description}</p>
+          <div style={{ display: 'flex' }}>
+            <h5 className='ProductPrice' style={{ textDecoration: 'line-through' }}>
+              &#x20B9; {cart.price}
+            </h5>
+            <span style={{ color: 'green', paddingLeft: '5px' }}>({discountPercentage(cart)}%)Off</span>
+          </div>
+          <h5 className='ProductPrice'>&#x20B9; {calculateRestAmountForItem(cart)}</h5>
+          <div>
+            <CiCirclePlus
+              className='bg-dark text-white fs-3'
+              style={{ borderRadius: '100%', cursor: 'pointer' }}
+              onClick={() => updateQuantity(cart._id, quantity[cart._id] + 1)}
+            />
+            <span style={{ backgroundColor: '#fff', paddingLeft: '1rem', paddingRight: '1rem', paddingBottom: '0.5rem', paddingTop: '0.5rem', margin: '0.3rem', borderRadius: '10px', fontWeight: '800' }}>{quantity[cart._id]}</span>
+            <CiCircleMinus
+              className='bg-dark text-white fs-3'
+              style={{ borderRadius: '100%', cursor: 'pointer' }}
+              onClick={() => updateQuantity(cart._id, Math.max(1, quantity[cart._id] - 1))}
+            />
+          </div>
+        </div>
+        <div className='col-md-4 d-flex flex-column align-items-end mt-3 mb-3'>
+          <div className={styles.deleteDiv}>
+            <MdOutlineDeleteOutline
+              className={`${styles.deleteCart} fs-3`}
+              onClick={() => deleteCartData(cart._id)}
+            />
+          </div>
+        </div>
+      </div>
+    </div>
+  ))
+) : (
+  <>
+  <div style={{justifyContent:'center',display:'flex',marginTop:'5rem',fontSize:'30px',fontWeight:'800',fontFamily:'cursive'}}>
+    <img width={"250px"} src={empty} alt="" />
+  </div>
+    <h1 style={{textAlign:'center'}}>Your Cart is Empty</h1>
+  </>
+)}
+
           </div>
         </Col>
         <Col md={4}>

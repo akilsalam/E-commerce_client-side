@@ -155,12 +155,14 @@ const Products = (prop) => {
             </Card>
           ))}
           <Card className='exploreCard '>
+            <div style={{backgroundColor:'#d9d9d9',marginTop:'5rem',borderRadius:'25px'}}>
             <h1>See More</h1>
             <Card.Body>
               <Button variant="primary" onClick={SeeMore}>
                 Explore More
               </Button>
             </Card.Body>
+            </div>
           </Card>
           {showNotification && (
             <div style={{display:'flex',justifyContent:'center'}} className={`notification ${notificationMessage.includes('removed') ? 'removedNotification' : ''}`}>

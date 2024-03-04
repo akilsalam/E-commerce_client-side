@@ -67,7 +67,6 @@ const OrderPage = () => {
           'Content-Type': 'application/json',
         },
       });
-      window.alert('Order placed successfully:');
       navigate(`/checkout/${id}`)
     } catch (error) {
       window.alert('Error placing order:', error);

@@ -6,6 +6,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import Login from '../Login';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -100,8 +101,8 @@ const Profile = () => {
   
   // console.log(userProfile._id);
   return (
-    userProfile ? 
     <div>
+      {userProfile ? 
         <div className="row flex-wrap" >
         <div className="col-md-12" >
             <div className='profileImgDiv'>
@@ -235,7 +236,8 @@ const Profile = () => {
         </div>
       </div>
                       </div>
-    </div>:navigate('/login')
+:null}
+    </div>
   );
 }
 

@@ -46,6 +46,10 @@ const NavBar = () => {
     navigate('/admin/users')
   }
 
+  const login = () =>{
+    navigate('/admin/login')
+  }
+
     return (
       <div>
       <div className="container-fluid px-0 py-0" style={{height:'100vh'}}>
@@ -84,24 +88,14 @@ const NavBar = () => {
 
               <CDBSidebarFooter  style={{ textAlign: 'center', marginTop: 'auto' }}>
                 <div className="sidebar-btn-wrapper" style={{ padding: '20px 5px' }}>
+                  {admin ?
                 <CDBSidebarMenuItem style={{color:'red'}} onClick={logout} icon='fas fa-sign-out-alt' className="SideitemDiv">
                     <span className="sideitem">LogOut</span>
                   </CDBSidebarMenuItem>
-                {/* <Accordion  defaultActiveKey='0'>
-      <Accordion.Item  eventKey="1">
-        <Accordion.Header ><IoSettingsOutline />
-                    </Accordion.Header>
-        <Accordion.Body>
-        <Button variant="outline-secondary" onClick={userPage} style={{width:'100%'}}><RiUser3Line /> UserPage</Button>
-        <br />
-        <br />
-        {admin ? 
-        <Button variant="outline-danger" onClick={logout} style={{width:'100%'}}><RiLogoutCircleLine /> LogOut</Button>
-      :null}
-
-        </Accordion.Body>
-      </Accordion.Item>
-    </Accordion> */}
+                :
+                <CDBSidebarMenuItem onClick={login} icon='fas fa-sign-out-alt' className="SideitemDiv">
+                <span className="sideitem">Login</span>
+              </CDBSidebarMenuItem>}
                 </div>
               </CDBSidebarFooter>
             </CDBSidebar>
