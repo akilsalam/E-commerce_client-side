@@ -51,11 +51,13 @@ const OrderPage = () => {
           category: productData.category,
           quantity: quantity,
           totalAmount: calculateRestAmountForItem(productData) * quantity,
-          date: new Date().toISOString(),
+          date: new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric', hour12: true }),
           status: "Pending",
         },
       ],
     };
+    
+    
     console.log('pro',productData);
     console.log(orderData);
     

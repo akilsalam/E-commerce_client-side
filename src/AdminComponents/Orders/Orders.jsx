@@ -12,50 +12,61 @@ const Orders = () => {
             try {
                 const response = await axios.get('http://localhost:3000/admin/orders');
                 console.log('Orders from server:', response.data);
-        
+    
                 const ordersData = await Promise.all(
                     response.data.map(async (order) => {
                         const userResponse = await axios.get(`http://localhost:3000/admin/user/${order.customerId}`);
                         console.log('User details for order:', userResponse.data);
                         const user = userResponse.data;
-        
-                        // Calculate delivery date and add it to the order
-                        const deliveryDate = calculateDeliveryDate(order.updatedAt);
-        
-                        // Check if the delivery date matches the current date
-                        const isDelivered = deliveryDate === new Date().toLocaleDateString();
-        
-                        // If delivered, update the order status on the server
-                        if (isDelivered && order.status !== 'Delivered') {
-                            // Assuming there is only one product in each order
-                            const productId = order.products[0]._id;
-                            await axios.put(`http://localhost:3000/admin/orders/${order._id}/products/${productId}`, { status: 'Delivered' });
-                        }
-        
+    
                         // Update each product with the calculated deliveryDate
-                        const productsWithDeliveryDate = order.products.map(product => ({ ...product, deliveryDate }));
-        
-                        return { ...order, user, deliveryDate, products: productsWithDeliveryDate };
+                        const productsWithDeliveryDate = await Promise.all(order.products.map(async (product) => {
+                            const productDeliveryDate = calculateDeliveryDate(product.date);
+                            
+                            // Check if the delivery date matches the current date
+                            const isDelivered = new Date(productDeliveryDate) <= new Date();
+    
+                            // If delivered, update the product status on the server
+                            if (isDelivered && product.status !== 'Delivered') {
+                                await axios.put(`http://localhost:3000/admin/orders/${order._id}/products/${product._id}`, { status: 'Delivered' });
+                            }
+    
+                            return { ...product, deliveryDate: productDeliveryDate };
+                        }));
+    
+                        return { ...order, user, products: productsWithDeliveryDate };
                     })
                 );
-        
+    
                 console.log('Orders with user details:', ordersData);
-        
+    
                 setOrders(ordersData);
             } catch (error) {
                 console.error('Error fetching orders:', error);
             }
         };
-        
-
+    
         fetchOrders();
     }, []);
-
+    
     const calculateDeliveryDate = (orderDate) => {
         const deliveryDate = new Date(orderDate);
-        deliveryDate.setDate(deliveryDate.getDate() + 1); // Assuming 3 days for delivery
-        return deliveryDate.toLocaleDateString();
+        deliveryDate.setDate(deliveryDate.getDate() + 2);
+    
+        const formattedDeliveryDate = new Intl.DateTimeFormat('en-GB', {
+            day: 'numeric',
+            month: 'short',
+            year: 'numeric',
+            hour: 'numeric',
+            minute: 'numeric',
+            second: 'numeric',
+            hour12: true
+        }).format(deliveryDate);
+    
+        return formattedDeliveryDate;
     };
+    
+    
 
     const renderProductsDropdown = (products, orderId) => (
         <div className={styles.productsDropdown}>
@@ -66,9 +77,11 @@ const Orders = () => {
                     <p>Category: {product.category}</p>
                     <p>Quantity: {product.quantity}</p>
                     <p>Total Amount: &#x20B9;{product.totalAmount}</p>
-                    <p>Purchase Date & Time: {new Date(product.date).toLocaleString()}</p>
-                    {(product.status === 'Rejected') ? null : (
-                    <p>Delivery Date: {product.deliveryDate}</p>
+                    <p>Purchase Date & Time: {product.date}</p>
+                    {(product.status === 'Rejected' || product.status === 'Delivered') ? null : (
+                    <p>Delivery Date: 
+                        {product.deliveryDate}
+                        </p>
                     )}
                     <p>Status:
                     {(product.status === 'Rejected') ? (

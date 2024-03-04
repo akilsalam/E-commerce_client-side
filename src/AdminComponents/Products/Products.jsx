@@ -115,7 +115,7 @@ const Products = () => {
               {filteredProducts?.map((product, index) => (
                 <tr key={index}>
                   <td>{index + 1}</td>
-                  <td style={{ justifyContent: 'center', display: 'flex', textAlign: 'center' }}><img width={'50px'} src={product.thumbnail && product.thumbnail.startsWith('http')
+                  <td style={{ textAlign: 'center'}}><img width={'50px'} src={product.thumbnail && product.thumbnail.startsWith('http')
                     ? product.thumbnail
                     : `data:image/jpeg;base64,${product.thumbnail}`
                   } alt="" /></td>

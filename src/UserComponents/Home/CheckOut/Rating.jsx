@@ -5,11 +5,12 @@ import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Rate = () => {
     const {id} = useParams()
     const [thumbnail,setThumbnail] = useState('')
+    const navigate = useNavigate()
     const [value, setValue] = useState(0); // Initial state can be set to 0 or any default value
 
     const handleRatingChange = (event, newValue) => {
@@ -41,6 +42,7 @@ const Rate = () => {
             .then(response => {
                 // Handle success
                 console.log('Rating sent successfully');
+                navigate('/')
             })
             .catch(error => {
                 // Handle error
