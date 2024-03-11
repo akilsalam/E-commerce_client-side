@@ -23,7 +23,7 @@ const handleClose = () => setShow(false);
         {!user &&  
         <Offcanvas show={show} onHide={handleClose} >
         <Offcanvas.Header closeButton >
-          <Offcanvas.Title style={{fontWeight:'bolder' }}>ShipShop</Offcanvas.Title>
+          <Offcanvas.Title style={{fontWeight:'bolder' }}>ShippyShop</Offcanvas.Title>
         </Offcanvas.Header>
         <div style={{backgroundColor:'#D9D9D9',margin:'2rem'}}>
 
