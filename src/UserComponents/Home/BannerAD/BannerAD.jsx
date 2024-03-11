@@ -1,7 +1,7 @@
 import React from 'react';
 import './BannerAD.css'
 import { Carousel } from 'react-bootstrap';
-import Banner1 from '../../../Images/Banner.webp'
+import Banner1 from '../../../Images/Banner.jpeg'
 import Banner2 from '../../../Images/Banner2.webp'
 import Banner3 from '../../../Images/Banner3.webp'
 
