@@ -5,6 +5,7 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import { Button } from 'react-bootstrap';
 import { IoArrowBackCircleOutline } from "react-icons/io5";
+import serverUrl from '../../../codes';
 
 const CheckOut = () => {
     const [firstName,setFirstName] = useState('')
@@ -33,7 +34,7 @@ const CheckOut = () => {
         // Fetch user data based on the userId from the server
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/checkoutProduct/${productId}`);
+                const response = await fetch(`${serverUrl}/checkoutProduct/${productId}`);
                 if (response.ok) {
                     const productData = await response.json();
                     setThumbnail(productData.productDetails.thumbnail);
@@ -56,7 +57,7 @@ const CheckOut = () => {
         // Fetch user data based on the userId from the server
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/checkoutForm/${userId}`);
+                const response = await fetch(`${serverUrl}/checkoutForm/${userId}`);
                 if (response.ok) {
                     const userData = await response.json();
                     setFirstName(userData.first_name)
@@ -86,7 +87,7 @@ const CheckOut = () => {
         if(confirmation){
 
             try {
-                const response = await fetch(`http://localhost:3001/checkoutForm/${userId}`, {
+                const response = await fetch(`${serverUrl}/checkoutForm/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,7 +126,7 @@ const CheckOut = () => {
         const receiptId = "qwsaql"
 
 
-        const response = await fetch("http://localhost:3001/payment", { 
+        const response = await fetch(`${serverUrl}/payment`, { 
         method: "POST",
         body: JSON.stringify({
             amount,
@@ -153,7 +154,7 @@ const CheckOut = () => {
                     ...response,
                 };
 
-                const validateRes = await fetch("http://localhost:3001/payment/validate", {
+                const validateRes = await fetch(`${serverUrl}/payment/validate`, {
                     method: "POST",
                     body: JSON.stringify(body),
                     headers:{

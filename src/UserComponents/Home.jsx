@@ -7,6 +7,7 @@ import Products from './Home/Products/Products';
 import { Offcanvas,Button } from 'react-bootstrap';
 import img from '../Images/icon.svg'
 import { useNavigate } from 'react-router-dom';
+import serverUrl from '../codes';
 
 const Home = () => {
   const user = localStorage.getItem('ShipShopUserName') || localStorage.getItem('ShipShopUserPhone')
@@ -43,14 +44,14 @@ const handleClose = () => setShow(false);
       <HeadProducts/>
       <BannerAD/>
       <OfferCards/>
-      <Products url='http://localhost:3001/groceries' title='Groceries' id='Grocery' link='/Groceries'/>
-      <Products url='http://localhost:3001/smartphones' title='Mobiles' id='Mobiles' link='/Mobiles'/>
-      <Products url='http://localhost:3001/fashions' title='Fashions' id='Fashion' link='/Fashions'/>
-      <Products url='http://localhost:3001/electronics' title='Electronics' id='Electronics' link='/Electronics'/>
-      <Products url='http://localhost:3001/furniture' title='Furnitures' id='Furniture' link='/Furnitures'/>
-      <Products url='http://localhost:3001/appliances' title='Appliances' id='Appliances' link='/Appliances'/>
-      <Products url='http://localhost:3001/beautyToys' title='Beauty' id='Beauty' link='/Beauty'/>
-      <Products url='http://localhost:3001/two-wheelers' title='Two Wheelers' id='twoWheelers' link='/TwoWheelers'/>
+      <Products url= {`${serverUrl}/groceries`} title='Groceries' id='Grocery' link='/Groceries'/>
+      <Products url={`${serverUrl}/smartphones`} title='Mobiles' id='Mobiles' link='/Mobiles'/>
+      <Products url={`${serverUrl}/fashions`} title='Fashions' id='Fashion' link='/Fashions'/>
+      <Products url={`${serverUrl}/electronics`} title='Electronics' id='Electronics' link='/Electronics'/>
+      <Products url={`${serverUrl}/furniture`} title='Furnitures' id='Furniture' link='/Furnitures'/>
+      <Products url={`${serverUrl}/appliances`} title='Appliances' id='Appliances' link='/Appliances'/>
+      <Products url={`${serverUrl}/beautyToys`} title='Beauty' id='Beauty' link='/Beauty'/>
+      <Products url={`${serverUrl}/two-wheelers`} title='Two Wheelers' id='twoWheelers' link='/TwoWheelers'/>
     </div>
   );
 }

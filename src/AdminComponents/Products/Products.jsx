@@ -8,6 +8,7 @@ import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import { IoBagAdd } from "react-icons/io5";
 import { FaEdit } from "react-icons/fa";
 import { FaRegImages } from "react-icons/fa";
+import serverUrl from '../../codes';
 
 const Products = () => {
   const [data, setData] = useState([]);
@@ -18,7 +19,7 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/admin/products');
+        const response = await axios.get(`${serverUrl}/admin/products`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -46,7 +47,7 @@ const Products = () => {
     const confirmation = window.confirm(`Are you sure you want to delete the product of ID:${productId}`)
     if (confirmation) {
       try {
-        const response = await fetch(`http://localhost:3001/admin/deleteProduct/${productId}`, {
+        const response = await fetch(`${serverUrl}/admin/deleteProduct/${productId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',

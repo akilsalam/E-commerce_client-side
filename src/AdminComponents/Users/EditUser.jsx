@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import './EditUser.css'
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import serverUrl from '../../codes';
 
 const EditUser = () => {
   const [firstName, setFirstName] = useState('');
@@ -25,7 +26,7 @@ const EditUser = () => {
     // Fetch user data based on the userId from the server
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3001/admin/editUser/${userId}`);
+        const response = await fetch(`${serverUrl}/admin/editUser/${userId}`);
         if (response.ok) {
           const userData = await response.json();
           setFirstName(userData.first_name)
@@ -52,7 +53,7 @@ const EditUser = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3001/admin/editUser/${userId}`, {
+      const response = await fetch(`${serverUrl}/admin/editUser/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

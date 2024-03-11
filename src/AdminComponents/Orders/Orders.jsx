@@ -3,6 +3,7 @@ import { Button, Table } from 'react-bootstrap';
 import { FaClipboardList } from 'react-icons/fa';
 import axios from 'axios';
 import styles from './Orders.module.css';
+import serverUrl from '../../codes';
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
@@ -10,12 +11,12 @@ const Orders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3001/admin/orders');
+                const response = await axios.get(`${serverUrl}/admin/orders`);
                 console.log('Orders from server:', response.data);
     
                 const ordersData = await Promise.all(
                     response.data.map(async (order) => {
-                        const userResponse = await axios.get(`http://localhost:3001/admin/user/${order.customerId}`);
+                        const userResponse = await axios.get(`${serverUrl}/admin/user/${order.customerId}`);
                         console.log('User details for order:', userResponse.data);
                         const user = userResponse.data;
     
@@ -28,7 +29,7 @@ const Orders = () => {
     
                             // If delivered, update the product status on the server
                             if (isDelivered && product.status !== 'Delivered') {
-                                await axios.put(`http://localhost:3001/admin/orders/${order._id}/products/${product._id}`, { status: 'Delivered' });
+                                await axios.put(`${serverUrl}/admin/orders/${order._id}/products/${product._id}`, { status: 'Delivered' });
                             }
     
                             return { ...product, deliveryDate: productDeliveryDate };
@@ -110,7 +111,7 @@ const Orders = () => {
             const confirmation = window.confirm('Are you sure you want to reject this order')
             if(confirmation){
                 // Send a request to update the product status in the database
-                await axios.put(`http://localhost:3000/admin/orders/${orderId}/products/${productId}`, { status: 'Rejected' });
+                await axios.put(`${serverUrl}/admin/orders/${orderId}/products/${productId}`, { status: 'Rejected' });
                 
                 // Update the status locally
                 const updatedOrders = orders.map((order) =>

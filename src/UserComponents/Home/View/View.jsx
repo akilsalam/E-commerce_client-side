@@ -11,6 +11,7 @@ import { GrStatusGood } from 'react-icons/gr';
 import { useNavigate } from 'react-router-dom';
 import Rating from '@mui/material/Rating';
 import Stack from '@mui/material/Stack';
+import serverUrl from '../../../codes';
 
 const View = () => {
   const { id } = useParams();
@@ -32,7 +33,7 @@ const View = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/View/${id}`);
+        const response = await axios.get(`${serverUrl}/View/${id}`);
         setProductData(response.data);
         console.log('Product Data:', response.data);
       } catch (error) {
@@ -46,7 +47,7 @@ const View = () => {
   useEffect(() => {
     const fetchRate = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/rate/${id}`);
+        const response = await axios.get(`${serverUrl}/rate/${id}`);
         setRate(response.data);
         console.log('Rates', response.data);
       } catch (error) {
@@ -144,7 +145,7 @@ const View = () => {
       try {
         // Send data to the server
         await axios.post(
-          'http://localhost:3001/cart',
+          `${serverUrl}/cart`,
           {
             user: user,
             items: existingCart,
@@ -173,7 +174,7 @@ const View = () => {
   const cartExist = async (productId) => {
     try {
       // Send a request to the server to check if the product and productId exist in the cart
-      const response = await axios.get(`http://localhost:3001/cartExist/${id}`, {
+      const response = await axios.get(`${serverUrl}/cartExist/${id}`, {
         params: { user: user, productId: productId },
       });
 
@@ -229,7 +230,7 @@ const View = () => {
       try {
         // Send data to the server
         await axios.post(
-          'http://localhost:3001/wishlist',
+          `${serverUrl}/wishlist`,
           {
             user: user,
             items: existingWishList,
@@ -259,7 +260,7 @@ const View = () => {
   const wishExist = async (productId) => {
     try {
       // Send a request to the server to check if the product and productId exist in the cart
-      const response = await axios.get(`http://localhost:3001/wishExist/${id}`, {
+      const response = await axios.get(`${serverUrl}/wishExist/${id}`, {
         params: { user: user, productId: id },
       });
 
@@ -275,7 +276,7 @@ const View = () => {
   const removeWish = async () =>{
     try {
       // If user is available, send a request to the server to delete the cart item
-      await axios.delete(`http://localhost:3001/wishlist/${id}`, {
+      await axios.delete(`${serverUrl}/wishlist/${id}`, {
         headers: {
           'Content-Type': 'application/json',
         },

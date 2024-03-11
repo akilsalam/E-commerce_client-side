@@ -6,6 +6,7 @@ import { FaRegImages } from 'react-icons/fa';
 import { RiImageEditFill } from 'react-icons/ri';
 import { MdDeleteForever } from "react-icons/md";
 import { useNavigate } from 'react-router-dom';
+import serverUrl from '../../codes';
 
 const OtherImages = () => {
   const [data, setData] = useState({});
@@ -20,7 +21,7 @@ const OtherImages = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/admin/otherImages/${productId}`);
+        const response = await axios.get(`${serverUrl}/admin/otherImages/${productId}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -40,7 +41,7 @@ const OtherImages = () => {
         const base64String = reader.result.split(',')[1];
 
         const response = await axios.post(
-          `http://localhost:3001/admin/editImage/${productId}/${index}`,
+          `${serverUrl}/admin/editImage/${productId}/${index}`,
           { image: base64String },
           {
             headers: {
@@ -72,7 +73,7 @@ const OtherImages = () => {
 
         try {
             const response = await axios.post(
-        `http://localhost:3001/admin/deleteImage/${productId}/${index}`,
+        `${serverUrl}/admin/deleteImage/${productId}/${index}`,
         {},
         {
           headers: {

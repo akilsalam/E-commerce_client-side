@@ -7,6 +7,7 @@ import { Form,Alert } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import serverUrl from '../../codes';
 
 
 const SignupPage = () => {
@@ -27,7 +28,7 @@ const SignupPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/signup', {
+      const response = await axios.post(`${serverUrl}/signup`, {
         firstData: firstName,
         lastData: lastName,
         emailData: email,

@@ -3,6 +3,7 @@ import './AddProduct.css';
 import axios from 'axios';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import serverUrl from '../../codes';
 
 const AddProduct = () => {
   const [title, setTitle] = useState('');
@@ -92,7 +93,7 @@ const AddProduct = () => {
         image3,
       };
 
-      const response = await axios.post('http://localhost:3001/admin/addProduct', productData);
+      const response = await axios.post(`${serverUrl}/admin/addProduct`, productData);
 
       if (response.status === 200) {
         const data = response.data;

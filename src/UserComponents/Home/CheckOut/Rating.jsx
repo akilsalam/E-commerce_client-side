@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import serverUrl from '../../../codes';
 
 const Rate = () => {
     const {id} = useParams()
@@ -21,7 +22,7 @@ const Rate = () => {
         // Fetch user data based on the userId from the server
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3001/checkoutProduct/${id}`);
+                const response = await fetch(`${serverUrl}/checkoutProduct/${id}`);
                 if (response.ok) {
                     const productData = await response.json();
                     setThumbnail(productData.productDetails.thumbnail);
@@ -38,7 +39,7 @@ const Rate = () => {
 
     const handleSaveRating = () => {
     
-        axios.post(`http://localhost:3001/rateProduct/${id}`, { rating: value })
+        axios.post(`${serverUrl}/rateProduct/${id}`, { rating: value })
             .then(response => {
                 // Handle success
                 console.log('Rating sent successfully');

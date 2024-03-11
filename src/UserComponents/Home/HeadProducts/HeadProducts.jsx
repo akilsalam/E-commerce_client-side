@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './HeadProducts.module.css'
 import { Col, Row,Navbar,Container } from 'react-bootstrap';
-import img1 from "../../../Images/grocery.png"
+import img1 from "../../../Images/grocery.webp"
 import img2 from '../../../Images/mobiles.png'
 import img3 from '../../../Images/Fashion.png'
 import img4 from '../../../Images/home.png'
@@ -9,7 +9,7 @@ import img5 from '../../../Images/Electronics.png'
 import img6 from '../../../Images/Appliances.png'
 import img7 from '../../../Images/Travel.png'
 import img8 from '../../../Images/Beauty.png'
-import img9 from '../../../Images/Two wheelers.png'
+import img9 from '../../../Images/Two_wheelers.png'
 
 
 const HeadProducts = () => {

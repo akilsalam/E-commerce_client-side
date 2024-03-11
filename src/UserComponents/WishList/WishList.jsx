@@ -5,6 +5,7 @@ import { FaRegHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import empty from '../../Images/emptyWishlist.png'
+import serverUrl from '../../codes';
 
 const WishList = () => {
   const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ const WishList = () => {
 const fetchCartData = async () => {
   if (user) {
     try {
-      const response = await axios.get(`http://localhost:3001/wishlist/${user}`);
+      const response = await axios.get(`${serverUrl}/wishlist/${user}`);
       // Check if response.data is an array before iterating
       if (Array.isArray(response.data)) {
         setData(response.data);
@@ -67,7 +68,7 @@ const fetchCartData = async () => {
         if(confirmation){
         try {
           // If user is available, send a request to the server to delete the cart item
-          await axios.delete(`http://localhost:3001/wishlist/${productId}`, {
+          await axios.delete(`${serverUrl}/wishlist/${productId}`, {
             headers: {
               'Content-Type': 'application/json',
             },

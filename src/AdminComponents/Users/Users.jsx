@@ -7,6 +7,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { AiFillDelete } from "react-icons/ai";
 import { TiUserAdd } from "react-icons/ti";
 import { FaUsers } from "react-icons/fa";
+import serverUrl from '../../codes';
 
 const Users = () => {
   const [data, setData] = useState([]);
@@ -17,7 +18,7 @@ const Users = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/admin/users');
+        const response = await axios.get(`${serverUrl}/admin/users`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -41,7 +42,7 @@ const Users = () => {
     const confirmation = window.confirm('Are you sure about deleting the user?');
     if (confirmation) {
       try {
-        const response = await fetch(`http://localhost:3001/admin/deleteUser/${userId}`, {
+        const response = await fetch(`${serverUrl}/admin/deleteUser/${userId}`, {
           method: 'DELETE',
         });
 

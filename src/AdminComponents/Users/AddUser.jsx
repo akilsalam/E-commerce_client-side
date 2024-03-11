@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import './AddUser.css'
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
+import serverUrl from '../../codes';
 
 const AddUser = () => {
   const [firstName, setFirstName] = useState('');
@@ -31,7 +32,7 @@ const AddUser = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/admin/addUser', {
+      const response = await axios.post(`${serverUrl}/admin/addUser`, {
         firstData: firstName,
         lastData: lastName,
         emailData: email,

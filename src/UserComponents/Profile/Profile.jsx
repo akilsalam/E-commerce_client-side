@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css';
 import Login from '../Login';
+import serverUrl from '../../codes';
 
 const Profile = () => {
   const [userProfile, setUserProfile] = useState(null);
@@ -35,7 +36,7 @@ const Profile = () => {
       // Add a conditional check for storedPhone
       const phoneWithoutPlus = storedPhone ? storedPhone.replace('+', '') : '';
   
-      axios.post('http://localhost:3001/profile', { email: storedEmail, phone: phoneWithoutPlus })
+      axios.post(`${serverUrl}/profile`, { email: storedEmail, phone: phoneWithoutPlus })
         .then(response => {
           // Update the state with the fetched user profile data
           setUserProfile(response.data);
@@ -65,7 +66,7 @@ const Profile = () => {
       const confirmation = window.confirm('Are you Sure you want to edit the data')
       if(confirmation){
 
-        const response = await fetch(`http://localhost:3001/profileEdit/${userId}`, {
+        const response = await fetch(`${serverUrl}/profileEdit/${userId}`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

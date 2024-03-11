@@ -9,6 +9,7 @@ import 'react-phone-input-2/lib/style.css';
 import { RecaptchaVerifier, signInWithPhoneNumber } from 'firebase/auth';
 import { auth } from '../../firebase';
 import ReCAPTCHA from 'react-google-recaptcha';
+import serverUrl from '../../codes';
 
 const Login = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Login = () => {
     try {
       // Assuming you have a server endpoint that validates the login
       const response = await axios.post(
-        'http://localhost:3001/login',
+        `${serverUrl}/login`,
         {
           email,
           password,
@@ -57,7 +58,7 @@ const Login = () => {
             if (cart.length > 0) {
               // Assuming you want to send all items in the cart to the server
               const response = await axios.post(
-                'http://localhost:3001/cart',
+                `${serverUrl}/cart`,
                 {
                   user: loggedInUser,
                   items: cart,
@@ -111,7 +112,7 @@ const Login = () => {
       console.log('Sending OTP...');
       try {
         const response = await axios.post(
-          'http://localhost:3001/checkPhoneNumber',
+          `${serverUrl}/checkPhoneNumber`,
           {
             phone: phone.replace(/\D/g, ''), // Remove non-numeric characters
           },
@@ -172,7 +173,7 @@ const Login = () => {
         if (cart.length > 0) {
           // Assuming you want to send all items in the cart to the server
           const response = await axios.post(
-            'http://localhost:3001/cart',
+            `${serverUrl}/cart`,
             {
               user: loggedInUser,
               items: cart,
@@ -192,7 +193,7 @@ const Login = () => {
         if (wish.length > 0) {
           // Assuming you want to send all items in the cart to the server
           const response = await axios.post(
-            'http://localhost:3001/wishlist',
+            `${serverUrl}/wishlist`,
             {
               user: loggedInUser,
               items: wish,

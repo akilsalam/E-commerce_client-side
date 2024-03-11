@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { Alert } from 'react-bootstrap';
 import './LoginPage.css'
 import AdminHome from '../AdminHome';
+import serverUrl from '../../codes';
+
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -21,7 +23,7 @@ const LoginPage = () => {
 
     try {
       // Assuming you have a server endpoint that validates the login
-      const response = await axios.post('http://localhost:3001/admin/login', {
+      const response = await axios.post(`${serverUrl}/admin/login`, {
         email,
         password,
       }, {

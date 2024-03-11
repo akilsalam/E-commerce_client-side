@@ -4,6 +4,7 @@ import { CiCirclePlus, CiCircleMinus } from 'react-icons/ci';
 import { Button } from 'react-bootstrap';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import serverUrl from '../../../codes';
 // const CryptoJS = require('crypto-js');
 
 const OrderPage = () => {
@@ -25,7 +26,7 @@ const OrderPage = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3001/View/${id}`);
+        const response = await axios.get(`${serverUrl}/View/${id}`);
         setProductData(response.data);
       } catch (error) {
         console.error('Error fetching product data:', error);
@@ -62,7 +63,7 @@ const OrderPage = () => {
     console.log(orderData);
     
     try {
-      const response = await axios.post('http://localhost:3001/placeOrder', orderData, {
+      const response = await axios.post(`${serverUrl}/placeOrder`, orderData, {
         headers: {
           'Content-Type': 'application/json',
         },

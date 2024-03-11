@@ -7,8 +7,8 @@ import { BsCart3 } from 'react-icons/bs';
 import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import empty from '../../Images/emptyCart.png'
-import serverUrl from '../../../codes';
+import empty from '../../Images/emptyCart.png';
+import serverUrl from '../../codes';
 
 const CartList = () => {
   const [firstName,setFirstName] = useState('')
@@ -93,7 +93,7 @@ const fetchCartData = async () => {
         if(confirmation){
         try {
           // If user is available, send a request to the server to delete the cart item
-          await axios.delete(`http://localhost:3001/cart/${productId}`, {
+          await axios.delete(`${serverUrl}/cart/${productId}`, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -142,7 +142,7 @@ const fetchCartData = async () => {
     // Fetch user data based on the userId from the server
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:3001/checkoutForm/${user}`);
+            const response = await fetch(`${serverUrl}/checkoutForm/${user}`);
             if (response.ok) {
                 const userData = await response.json();
                 setFirstName(userData.first_name)
@@ -172,7 +172,7 @@ const fetchCartData = async () => {
     const receiptId = "qwsaql"
 
 
-    const response = await fetch("http://localhost:3001/payment", { 
+    const response = await fetch(`${serverUrl}/payment`, { 
     method: "POST",
     body: JSON.stringify({
         amount,
@@ -200,7 +200,7 @@ const fetchCartData = async () => {
                 ...response,
             };
 
-            const validateRes = await fetch("http://localhost:3001/payment/validate", {
+            const validateRes = await fetch(`${serverUrl}/payment/validate`, {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers:{

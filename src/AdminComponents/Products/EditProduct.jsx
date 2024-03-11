@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './EditProduct.css';
 import { Button } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
+import serverUrl from '../../codes';
 
 const EditProduct = () => {
   const [name, setName] = useState('');
@@ -55,7 +56,7 @@ const EditProduct = () => {
 
   const fetchProductData = async (productId) => {
     // Use the same URL for fetching data
-    const response = await fetch(`http://localhost:3001/admin/editProduct/${productId}`);
+    const response = await fetch(`${serverUrl}/admin/editProduct/${productId}`);
     return response;
   };
 
@@ -94,7 +95,7 @@ const EditProduct = () => {
     };
   
     try {
-      const response = await fetch(`http://localhost:3001/admin/editProduct/${productId}`, {
+      const response = await fetch(`${serverUrl}/admin/editProduct/${productId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
