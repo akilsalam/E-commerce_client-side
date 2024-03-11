@@ -4,10 +4,11 @@ import { CiCirclePlus } from 'react-icons/ci';
 import { CiCircleMinus } from 'react-icons/ci';
 import { MdOutlineDeleteOutline } from 'react-icons/md';
 import { BsCart3 } from 'react-icons/bs';
-import { Button, Col, Row } from 'react-bootstrap'; // Import Col and Row from react-bootstrap
+import { Button, Col, Row } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import empty from '../../Images/emptyCart.png'
+import serverUrl from '../../../codes';
 
 const CartList = () => {
   const [firstName,setFirstName] = useState('')
@@ -29,7 +30,7 @@ const CartList = () => {
 const fetchCartData = async () => {
   if (user) {
     try {
-      const response = await axios.get(`http://localhost:3001/cart/${user}`);
+      const response = await axios.get(`${serverUrl}/cart/${user}`);
       // Check if response.data is an array before iterating
       if (Array.isArray(response.data)) {
         setCartData(response.data);
