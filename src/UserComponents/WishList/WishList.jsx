@@ -17,7 +17,7 @@ const WishList = () => {
 const fetchCartData = async () => {
   if (user) {
     try {
-      const response = await axios.get(`http://localhost:3000/wishlist/${user}`);
+      const response = await axios.get(`http://localhost:3001/wishlist/${user}`);
       // Check if response.data is an array before iterating
       if (Array.isArray(response.data)) {
         setData(response.data);
@@ -48,7 +48,7 @@ const fetchCartData = async () => {
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       const response = await axios.get('http://localhost:3000/wishlist');
+  //       const response = await axios.get('http://localhost:3001/wishlist');
   //       console.log(response.data);
   //       setData(response.data);
   //     } catch (error) {
@@ -67,7 +67,7 @@ const fetchCartData = async () => {
         if(confirmation){
         try {
           // If user is available, send a request to the server to delete the cart item
-          await axios.delete(`http://localhost:3000/wishlist/${productId}`, {
+          await axios.delete(`http://localhost:3001/wishlist/${productId}`, {
             headers: {
               'Content-Type': 'application/json',
             },

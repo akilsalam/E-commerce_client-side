@@ -27,7 +27,7 @@ const SignupPage = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/signup', {
+      const response = await axios.post('http://localhost:3001/signup', {
         firstData: firstName,
         lastData: lastName,
         emailData: email,

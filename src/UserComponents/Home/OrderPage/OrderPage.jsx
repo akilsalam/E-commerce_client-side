@@ -25,7 +25,7 @@ const OrderPage = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/View/${id}`);
+        const response = await axios.get(`http://localhost:3001/View/${id}`);
         setProductData(response.data);
       } catch (error) {
         console.error('Error fetching product data:', error);
@@ -62,7 +62,7 @@ const OrderPage = () => {
     console.log(orderData);
     
     try {
-      const response = await axios.post('http://localhost:3000/placeOrder', orderData, {
+      const response = await axios.post('http://localhost:3001/placeOrder', orderData, {
         headers: {
           'Content-Type': 'application/json',
         },

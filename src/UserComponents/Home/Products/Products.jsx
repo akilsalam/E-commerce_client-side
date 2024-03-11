@@ -98,7 +98,7 @@ const Products = (prop) => {
   //     try {
   //       // Send data to the server
   //       await axios.post(
-  //         'http://localhost:3000/wishlist',
+  //         'http://localhost:3001/wishlist',
   //         {
   //           user: user,
   //           items: existingWishList,

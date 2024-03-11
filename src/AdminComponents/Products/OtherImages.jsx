@@ -20,7 +20,7 @@ const OtherImages = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/admin/otherImages/${productId}`);
+        const response = await axios.get(`http://localhost:3001/admin/otherImages/${productId}`);
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -40,7 +40,7 @@ const OtherImages = () => {
         const base64String = reader.result.split(',')[1];
 
         const response = await axios.post(
-          `http://localhost:3000/admin/editImage/${productId}/${index}`,
+          `http://localhost:3001/admin/editImage/${productId}/${index}`,
           { image: base64String },
           {
             headers: {
@@ -72,7 +72,7 @@ const OtherImages = () => {
 
         try {
             const response = await axios.post(
-        `http://localhost:3000/admin/deleteImage/${productId}/${index}`,
+        `http://localhost:3001/admin/deleteImage/${productId}/${index}`,
         {},
         {
           headers: {

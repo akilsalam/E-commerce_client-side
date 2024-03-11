@@ -29,7 +29,7 @@ const CartList = () => {
 const fetchCartData = async () => {
   if (user) {
     try {
-      const response = await axios.get(`http://localhost:3000/cart/${user}`);
+      const response = await axios.get(`http://localhost:3001/cart/${user}`);
       // Check if response.data is an array before iterating
       if (Array.isArray(response.data)) {
         setCartData(response.data);
@@ -92,7 +92,7 @@ const fetchCartData = async () => {
         if(confirmation){
         try {
           // If user is available, send a request to the server to delete the cart item
-          await axios.delete(`http://localhost:3000/cart/${productId}`, {
+          await axios.delete(`http://localhost:3001/cart/${productId}`, {
             headers: {
               'Content-Type': 'application/json',
             },
@@ -141,7 +141,7 @@ const fetchCartData = async () => {
     // Fetch user data based on the userId from the server
     const fetchData = async () => {
         try {
-            const response = await fetch(`http://localhost:3000/checkoutForm/${user}`);
+            const response = await fetch(`http://localhost:3001/checkoutForm/${user}`);
             if (response.ok) {
                 const userData = await response.json();
                 setFirstName(userData.first_name)
@@ -171,7 +171,7 @@ const fetchCartData = async () => {
     const receiptId = "qwsaql"
 
 
-    const response = await fetch("http://localhost:3000/payment", { 
+    const response = await fetch("http://localhost:3001/payment", { 
     method: "POST",
     body: JSON.stringify({
         amount,
@@ -199,7 +199,7 @@ const fetchCartData = async () => {
                 ...response,
             };
 
-            const validateRes = await fetch("http://localhost:3000/payment/validate", {
+            const validateRes = await fetch("http://localhost:3001/payment/validate", {
                 method: "POST",
                 body: JSON.stringify(body),
                 headers:{

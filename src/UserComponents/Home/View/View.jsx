@@ -32,7 +32,7 @@ const View = () => {
   useEffect(() => {
     const fetchProductData = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/View/${id}`);
+        const response = await axios.get(`http://localhost:3001/View/${id}`);
         setProductData(response.data);
         console.log('Product Data:', response.data);
       } catch (error) {
@@ -46,7 +46,7 @@ const View = () => {
   useEffect(() => {
     const fetchRate = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/rate/${id}`);
+        const response = await axios.get(`http://localhost:3001/rate/${id}`);
         setRate(response.data);
         console.log('Rates', response.data);
       } catch (error) {
@@ -144,7 +144,7 @@ const View = () => {
       try {
         // Send data to the server
         await axios.post(
-          'http://localhost:3000/cart',
+          'http://localhost:3001/cart',
           {
             user: user,
             items: existingCart,
@@ -173,7 +173,7 @@ const View = () => {
   const cartExist = async (productId) => {
     try {
       // Send a request to the server to check if the product and productId exist in the cart
-      const response = await axios.get(`http://localhost:3000/cartExist/${id}`, {
+      const response = await axios.get(`http://localhost:3001/cartExist/${id}`, {
         params: { user: user, productId: productId },
       });
 
@@ -229,7 +229,7 @@ const View = () => {
       try {
         // Send data to the server
         await axios.post(
-          'http://localhost:3000/wishlist',
+          'http://localhost:3001/wishlist',
           {
             user: user,
             items: existingWishList,
@@ -259,7 +259,7 @@ const View = () => {
   const wishExist = async (productId) => {
     try {
       // Send a request to the server to check if the product and productId exist in the cart
-      const response = await axios.get(`http://localhost:3000/wishExist/${id}`, {
+      const response = await axios.get(`http://localhost:3001/wishExist/${id}`, {
         params: { user: user, productId: id },
       });
 
@@ -275,7 +275,7 @@ const View = () => {
   const removeWish = async () =>{
     try {
       // If user is available, send a request to the server to delete the cart item
-      await axios.delete(`http://localhost:3000/wishlist/${id}`, {
+      await axios.delete(`http://localhost:3001/wishlist/${id}`, {
         headers: {
           'Content-Type': 'application/json',
         },
@@ -341,6 +341,9 @@ const View = () => {
     return sumOfRatings;
   };
   
+  const login = () =>{
+    navigate('/login')
+  }
   
 
   return (
@@ -382,7 +385,8 @@ const View = () => {
           <div className='ButtonsDiv'>
             <div className='ButtonDiv'>
               {shouldRenderCartButton ? (
-                <button onClick={toCart} className='CartButton'>
+                <button 
+                onClick={toCart} className='CartButton'>
                   Add to Cart
                 </button>
               ) : (
@@ -392,7 +396,7 @@ const View = () => {
               )}
             </div>
             <div className='ButtonDiv'>
-              <button className='BuyButton' onClick={Buy}>
+              <button className='BuyButton' onClick={user ? Buy : login}>
                 Buy Now
               </button>
             </div>

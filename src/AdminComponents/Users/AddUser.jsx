@@ -31,7 +31,7 @@ const AddUser = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3000/admin/addUser', {
+      const response = await axios.post('http://localhost:3001/admin/addUser', {
         firstData: firstName,
         lastData: lastName,
         emailData: email,

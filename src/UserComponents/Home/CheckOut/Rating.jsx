@@ -21,7 +21,7 @@ const Rate = () => {
         // Fetch user data based on the userId from the server
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/checkoutProduct/${id}`);
+                const response = await fetch(`http://localhost:3001/checkoutProduct/${id}`);
                 if (response.ok) {
                     const productData = await response.json();
                     setThumbnail(productData.productDetails.thumbnail);
@@ -38,7 +38,7 @@ const Rate = () => {
 
     const handleSaveRating = () => {
     
-        axios.post(`http://localhost:3000/rateProduct/${id}`, { rating: value })
+        axios.post(`http://localhost:3001/rateProduct/${id}`, { rating: value })
             .then(response => {
                 // Handle success
                 console.log('Rating sent successfully');

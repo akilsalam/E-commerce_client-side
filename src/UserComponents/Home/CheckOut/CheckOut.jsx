@@ -33,7 +33,7 @@ const CheckOut = () => {
         // Fetch user data based on the userId from the server
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/checkoutProduct/${productId}`);
+                const response = await fetch(`http://localhost:3001/checkoutProduct/${productId}`);
                 if (response.ok) {
                     const productData = await response.json();
                     setThumbnail(productData.productDetails.thumbnail);
@@ -56,7 +56,7 @@ const CheckOut = () => {
         // Fetch user data based on the userId from the server
         const fetchData = async () => {
             try {
-                const response = await fetch(`http://localhost:3000/checkoutForm/${userId}`);
+                const response = await fetch(`http://localhost:3001/checkoutForm/${userId}`);
                 if (response.ok) {
                     const userData = await response.json();
                     setFirstName(userData.first_name)
@@ -86,7 +86,7 @@ const CheckOut = () => {
         if(confirmation){
 
             try {
-                const response = await fetch(`http://localhost:3000/checkoutForm/${userId}`, {
+                const response = await fetch(`http://localhost:3001/checkoutForm/${userId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,7 +125,7 @@ const CheckOut = () => {
         const receiptId = "qwsaql"
 
 
-        const response = await fetch("http://localhost:3000/payment", { 
+        const response = await fetch("http://localhost:3001/payment", { 
         method: "POST",
         body: JSON.stringify({
             amount,
@@ -153,7 +153,7 @@ const CheckOut = () => {
                     ...response,
                 };
 
-                const validateRes = await fetch("http://localhost:3000/payment/validate", {
+                const validateRes = await fetch("http://localhost:3001/payment/validate", {
                     method: "POST",
                     body: JSON.stringify(body),
                     headers:{

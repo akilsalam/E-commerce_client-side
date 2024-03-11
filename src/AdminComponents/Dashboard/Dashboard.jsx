@@ -25,7 +25,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/admin/products');
+                const response = await axios.get('http://localhost:3001/admin/products');
                 setProductLength(response.data.length.toString());
 
                 console.log(response.data.length);
@@ -42,7 +42,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/admin/orders');
+                const response = await axios.get('http://localhost:3001/admin/orders');
     
                 // Check if response.data[0].products is defined and is an array
                 if (response.data[0] && Array.isArray(response.data[0].products)) {
@@ -83,7 +83,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/admin/orders');
+                const response = await axios.get('http://localhost:3001/admin/orders');
                 
                 // Calculate the total number of products across all orders
                 const totalProducts = response.data.reduce((sum, order) => {
@@ -106,7 +106,7 @@ const Dashboard = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/admin/users');
+                const response = await axios.get('http://localhost:3001/admin/users');
                 setUserLength(response.data.length.toString());
                 console.log(response.data.length);
             } catch (error) {

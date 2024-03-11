@@ -25,7 +25,7 @@ const EditUser = () => {
     // Fetch user data based on the userId from the server
     const fetchData = async () => {
       try {
-        const response = await fetch(`http://localhost:3000/admin/editUser/${userId}`);
+        const response = await fetch(`http://localhost:3001/admin/editUser/${userId}`);
         if (response.ok) {
           const userData = await response.json();
           setFirstName(userData.first_name)
@@ -52,7 +52,7 @@ const EditUser = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3000/admin/editUser/${userId}`, {
+      const response = await fetch(`http://localhost:3001/admin/editUser/${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

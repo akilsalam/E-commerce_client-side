@@ -21,7 +21,7 @@ const LoginPage = () => {
 
     try {
       // Assuming you have a server endpoint that validates the login
-      const response = await axios.post('http://localhost:3000/admin/login', {
+      const response = await axios.post('http://localhost:3001/admin/login', {
         email,
         password,
       }, {

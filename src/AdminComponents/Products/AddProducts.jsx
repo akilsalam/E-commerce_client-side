@@ -92,7 +92,7 @@ const AddProduct = () => {
         image3,
       };
 
-      const response = await axios.post('http://localhost:3000/admin/addProduct', productData);
+      const response = await axios.post('http://localhost:3001/admin/addProduct', productData);
 
       if (response.status === 200) {
         const data = response.data;

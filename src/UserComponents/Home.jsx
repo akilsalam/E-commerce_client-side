@@ -43,14 +43,14 @@ const handleClose = () => setShow(false);
       <HeadProducts/>
       <BannerAD/>
       <OfferCards/>
-      <Products url='http://localhost:3000/groceries' title='Groceries' id='Grocery' link='/Groceries'/>
-      <Products url='http://localhost:3000/smartphones' title='Mobiles' id='Mobiles' link='/Mobiles'/>
-      <Products url='http://localhost:3000/fashions' title='Fashions' id='Fashion' link='/Fashions'/>
-      <Products url='http://localhost:3000/electronics' title='Electronics' id='Electronics' link='/Electronics'/>
-      <Products url='http://localhost:3000/furniture' title='Furnitures' id='Furniture' link='/Furnitures'/>
-      <Products url='http://localhost:3000/appliances' title='Appliances' id='Appliances' link='/Appliances'/>
-      <Products url='http://localhost:3000/beautyToys' title='Beauty' id='Beauty' link='/Beauty'/>
-      <Products url='http://localhost:3000/two-wheelers' title='Two Wheelers' id='twoWheelers' link='/TwoWheelers'/>
+      <Products url='http://localhost:3001/groceries' title='Groceries' id='Grocery' link='/Groceries'/>
+      <Products url='http://localhost:3001/smartphones' title='Mobiles' id='Mobiles' link='/Mobiles'/>
+      <Products url='http://localhost:3001/fashions' title='Fashions' id='Fashion' link='/Fashions'/>
+      <Products url='http://localhost:3001/electronics' title='Electronics' id='Electronics' link='/Electronics'/>
+      <Products url='http://localhost:3001/furniture' title='Furnitures' id='Furniture' link='/Furnitures'/>
+      <Products url='http://localhost:3001/appliances' title='Appliances' id='Appliances' link='/Appliances'/>
+      <Products url='http://localhost:3001/beautyToys' title='Beauty' id='Beauty' link='/Beauty'/>
+      <Products url='http://localhost:3001/two-wheelers' title='Two Wheelers' id='twoWheelers' link='/TwoWheelers'/>
     </div>
   );
 }

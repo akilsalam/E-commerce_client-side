@@ -10,12 +10,12 @@ const Orders = () => {
     useEffect(() => {
         const fetchOrders = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/admin/orders');
+                const response = await axios.get('http://localhost:3001/admin/orders');
                 console.log('Orders from server:', response.data);
     
                 const ordersData = await Promise.all(
                     response.data.map(async (order) => {
-                        const userResponse = await axios.get(`http://localhost:3000/admin/user/${order.customerId}`);
+                        const userResponse = await axios.get(`http://localhost:3001/admin/user/${order.customerId}`);
                         console.log('User details for order:', userResponse.data);
                         const user = userResponse.data;
     
@@ -28,7 +28,7 @@ const Orders = () => {
     
                             // If delivered, update the product status on the server
                             if (isDelivered && product.status !== 'Delivered') {
-                                await axios.put(`http://localhost:3000/admin/orders/${order._id}/products/${product._id}`, { status: 'Delivered' });
+                                await axios.put(`http://localhost:3001/admin/orders/${order._id}/products/${product._id}`, { status: 'Delivered' });
                             }
     
                             return { ...product, deliveryDate: productDeliveryDate };

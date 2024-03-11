@@ -18,7 +18,7 @@ const Products = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/admin/products');
+        const response = await axios.get('http://localhost:3001/admin/products');
         setData(response.data);
       } catch (error) {
         console.error('Error fetching data:', error);
@@ -46,7 +46,7 @@ const Products = () => {
     const confirmation = window.confirm(`Are you sure you want to delete the product of ID:${productId}`)
     if (confirmation) {
       try {
-        const response = await fetch(`http://localhost:3000/admin/deleteProduct/${productId}`, {
+        const response = await fetch(`http://localhost:3001/admin/deleteProduct/${productId}`, {
           method: 'DELETE',
           headers: {
             'Content-Type': 'application/json',
