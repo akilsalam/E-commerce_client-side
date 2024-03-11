@@ -7,7 +7,7 @@ import { BsCart3 } from 'react-icons/bs';
 import { Button, Col, Row } from 'react-bootstrap'; // Import Col and Row from react-bootstrap
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import empty from '../../Images/emptyCart.webp'
+import empty from '../../Images/emptyCart.jpg'
 
 const CartList = () => {
   const [firstName,setFirstName] = useState('')

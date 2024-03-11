@@ -1,15 +1,15 @@
 import React from 'react';
 import styles from './HeadProducts.module.css'
 import { Col, Row,Navbar,Container } from 'react-bootstrap';
-import img1 from "../../../Images/grocery.webp"
-import img2 from '../../../Images/mobiles.webp'
-import img3 from '../../../Images/Fashion.webp'
+import img1 from "../../../Images/grocery.jpg"
+import img2 from '../../../Images/mobiles.jpg'
+import img3 from '../../../Images/Fashion.jpg'
 import img4 from '../../../Images/home.png'
-import img5 from '../../../Images/Electronics.webp'
+import img5 from '../../../Images/Electronics.jpg'
 import img6 from '../../../Images/Appliances.png'
-import img7 from '../../../Images/Travel.webp'
-import img8 from '../../../Images/Beauty.webp'
-import img9 from '../../../Images/Two wheelers.webp'
+import img7 from '../../../Images/Travel.jpg'
+import img8 from '../../../Images/Beauty.jpg'
+import img9 from '../../../Images/Two wheelers.jpg'
 
 
 const HeadProducts = () => {
