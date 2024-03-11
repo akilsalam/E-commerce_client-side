@@ -26,6 +26,7 @@ import OtherImages from './AdminComponents/Products/OtherImages';
 import OrderPage from './UserComponents/Home/OrderPage/OrderPage';
 import CheckOut from './UserComponents/Home/CheckOut/CheckOut';
 import Rating from './UserComponents/Home/CheckOut/Rating';
+import serverUrl from './codes';
 
 
 function App() {
@@ -46,26 +47,26 @@ function App() {
                   <Route path="/signup" element={<SignUp />} />
                   <Route path="/wishList" element={<WishList />} />
                   <Route path='/profile' element={<Profile/>}/>
-                  <Route path='/Groceries' element={<Categories url="http://localhost:3001/groceries" title='Groceries' />} />
-                  <Route path='/Mobiles' element={<Categories url="http://localhost:3001/smartphones" title='Mobiles' />} />
-                  <Route path='/Fashions' element={<Categories url='http://localhost:3001/fashions' title='Fashions' />} />
-                  <Route path='/Electronics' element={<Categories url="http://localhost:3001/electronics" title='Electronics' />} />
-                  <Route path='/Furnitures' element={<Categories url="http://localhost:3001/furniture" title='Furnitures' />} />
-                  <Route path='/Appliances' element={<Categories url="http://localhost:3001/appliances" title='Appliances' />} />
-                  <Route path='/Beauty' element={<Categories url="http://localhost:3001/beautyToys" title='Beauty' />} />
-                  <Route path='/TwoWheelers' element={<Categories url="http://localhost:3001/two-wheelers" title='TwoWheelers' />} />
-                  <Route path='/Clothes' element={<Categories url="http://localhost:3001/mens-clothes" title='Clothes' />} />
-                  <Route path='/Footwears' element={<Categories url="http://localhost:3001/mens-footwears" title='Footwear' />} />
-                  <Route path='/Watches' element={<Categories url="http://localhost:3001/mens-watches" title='Watches' />} />
-                  <Route path='/Bags' element={<Categories url="http://localhost:3001/bags" title='Bags & Wallets' />} />
-                  <Route path='/WomenWatches' element={<Categories url="http://localhost:3001/women-watches" title='Watches' />} />
-                  <Route path='/WomenShoes' element={<Categories url="http://localhost:3001/women-footwears" title='Footwears' />} />
-                  <Route path='/WomenJewellery' element={<Categories url="http://localhost:3001/women-jewellery" title='Jewelleries' />} />
-                  <Route path='/Tops' element={<Categories url="http://localhost:3001/women-clothes" title='Tops' />} />
-                  <Route path='/Automotive' element={<Categories url="http://localhost:3001/automotive" title='Automotive' />} />
-                  <Route path='/Lights' element={<Categories url="http://localhost:3001/lights" title='Lights' />} />
-                  <Route path='/Sunglasses' element={<Categories url="http://localhost:3001/sunglasses" title='Sunglasses' />} />
-                  <Route path='/Fragrances' element={<Categories url="http://localhost:3001/fragrances" title='Fragrances' />} />
+                  <Route path='/Groceries' element={<Categories url={`${serverUrl}/groceries`} title='Groceries' />} />
+                  <Route path='/Mobiles' element={<Categories url={`${serverUrl}/smartphones`} title='Mobiles' />} />
+                  <Route path='/Fashions' element={<Categories url={`${serverUrl}/fashions`} title='Fashions' />} />
+                  <Route path='/Electronics' element={<Categories url={`${serverUrl}/electronics`} title='Electronics' />} />
+                  <Route path='/Furnitures' element={<Categories url={`${serverUrl}/furniture`} title='Furnitures' />} />
+                  <Route path='/Appliances' element={<Categories url={`${serverUrl}/appliances`} title='Appliances' />} />
+                  <Route path='/Beauty' element={<Categories url={`${serverUrl}/beautyToys`} title='Beauty' />} />
+                  <Route path='/TwoWheelers' element={<Categories url={`${serverUrl}/two-wheelers`} title='TwoWheelers' />} />
+                  <Route path='/Clothes' element={<Categories url={`${serverUrl}/mens-clothes`} title='Clothes' />} />
+                  <Route path='/Footwears' element={<Categories url={`${serverUrl}/mens-footwears`} title='Footwear' />} />
+                  <Route path='/Watches' element={<Categories url={`${serverUrl}/mens-watches`} title='Watches' />} />
+                  <Route path='/Bags' element={<Categories url={`${serverUrl}/bags`} title='Bags & Wallets' />} />
+                  <Route path='/WomenWatches' element={<Categories url={`${serverUrl}/women-watches`} title='Watches' />} />
+                  <Route path='/WomenShoes' element={<Categories url={`${serverUrl}/women-footwears`} title='Footwears' />} />
+                  <Route path='/WomenJewellery' element={<Categories url={`${serverUrl}/women-jewellery`} title='Jewelleries' />} />
+                  <Route path='/Tops' element={<Categories url={`${serverUrl}/women-clothes`} title='Tops' />} />
+                  <Route path='/Automotive' element={<Categories url={`${serverUrl}/automotive`} title='Automotive' />} />
+                  <Route path='/Lights' element={<Categories url={`${serverUrl}/lights`} title='Lights' />} />
+                  <Route path='/Sunglasses' element={<Categories url={`${serverUrl}/sunglasses`} title='Sunglasses' />} />
+                  <Route path='/Fragrances' element={<Categories url={`${serverUrl}/fragrances`} title='Fragrances' />} />
                   <Route path="/View/:id" element={<View />} />
                   <Route path='/orderPage/:id' element={<OrderPage/>}/>
                   <Route path='/checkout/:id' element={<CheckOut/>}/>
