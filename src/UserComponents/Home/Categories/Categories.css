@@ -1,9 +1,11 @@
 .itemDiv{
     margin-left: 1rem;
-    width: 97%;
+    margin-right: 1rem;
+    width: fit-content;
     background-color: #D9D9D9;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .CategoryTitle{

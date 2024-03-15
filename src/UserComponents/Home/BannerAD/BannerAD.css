@@ -1,9 +1,6 @@
 .BannerDiv {
     padding-top: 1rem;
   }
-.BannerDiv img{
-  width: 100%;
-}
 
 .carousel-control-next{
   background-color: black;
@@ -24,7 +21,7 @@
   
     .BannerDiv img {
       width: 100%; /* Make images responsive within their container */
-      height: auto; /* Maintain aspect ratio */
+      height: 7rem; /* Maintain aspect ratio */
     }
   }
   

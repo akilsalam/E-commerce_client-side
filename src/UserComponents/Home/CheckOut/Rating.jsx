@@ -68,7 +68,7 @@ const Rate = () => {
                         <Rating
                             className='fs-1'
                             name="half-rating"
-                            precision={0.5}
+                            // precision={0.5}
                             value={value}
                             onChange={handleRatingChange}
                         />

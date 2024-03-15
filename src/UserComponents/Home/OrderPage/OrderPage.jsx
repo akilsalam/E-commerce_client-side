@@ -58,7 +58,6 @@ const OrderPage = () => {
       ],
     };
     
-    
     console.log('pro',productData);
     console.log(orderData);
     
