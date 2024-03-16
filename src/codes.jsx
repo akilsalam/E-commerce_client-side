@@ -1,3 +1,3 @@
-const serverUrl = 'http://13.235.211.31'
+const serverUrl = 'https://www.shippy.shop'
 
 export default serverUrl;
