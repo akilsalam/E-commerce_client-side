@@ -351,7 +351,7 @@ const View = () => {
     productData ? (
       <div className="MainDiv row flex-wrap">
         <div className="ImgDiv col-md-6">
-          <div className="Img" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave}>
+          <div className="Img"  >
             <img
               src={
                 productData.thumbnail && productData.thumbnail.startsWith('/')
@@ -360,7 +360,7 @@ const View = () => {
               }
               alt=""
               className="img-fluid"
-              style={{ transformOrigin }}
+              // style={{ transformOrigin }}
             />
             <div className="wishlist  m-1" >
               {shouldRenderWishButton ? (
@@ -454,13 +454,25 @@ const View = () => {
                 <h5>Images</h5>
                 <div className="row flex-wrap">
                   <div className='col-md-4' style={{ justifyContent: 'center', display: 'flex' }}>
-                    <img style={{ borderRadius: '10px', width: '100px',  }} src={productData.images[0]} alt={`Image`} />
+                    <img style={{ borderRadius: '10px', width: '100px',  }} src={
+                productData.images[0] && productData.images[0].startsWith('/')
+                  ? `data:image/jpeg;base64,${productData.images[0]}`
+                  : productData.images[0]
+              } alt={`Image`} />
                   </div>
                   <div className='col-md-4' style={{ justifyContent: 'center', display: 'flex' }}>
-                    <img style={{ borderRadius: '10px', width: '100px',  }} src={productData.images[1]} alt={`Image`} />
+                    <img style={{ borderRadius: '10px', width: '100px',  }} src={
+                productData.images[1] && productData.images[1].startsWith('/')
+                  ? `data:image/jpeg;base64,${productData.images[1]}`
+                  : productData.images[1]
+              } alt={`Image`} />
                   </div>
                   <div className='col-md-4' style={{ justifyContent: 'center', display: 'flex' }}>
-                    <img style={{ borderRadius: '10px', width: '100px',}} src={productData.images[2]} alt={`Image`} />
+                    <img style={{ borderRadius: '10px', width: '100px',}} src={
+                productData.images[2] && productData.images[2].startsWith('/')
+                  ? `data:image/jpeg;base64,${productData.images[2]}`
+                  : productData.images[2]
+              } alt={`Image`} />
                   </div>
                 </div>
               </div>

@@ -81,7 +81,11 @@ const OrderPage = () => {
             <h1 className={`${styles.CheckOutHead}`}>Order Summary</h1>
             <div className="row flex-wrap">
               <div className={`${styles.ImgDiv} col-md-6`}>
-                <img src={productData.thumbnail} width={'350px'} alt="" />
+                <img src={
+                productData.thumbnail && productData.thumbnail.startsWith('/')
+                  ? `data:image/jpeg;base64,${productData.thumbnail}`
+                  : productData.thumbnail
+              } width={'350px'} alt="" />
               </div>
               <div className={`${styles.ProductDetails} col-md-6`}>
               <div style={{backgroundColor:'#d9d9d9',borderRadius:'10px',padding:'0.5rem',marginRight:'1rem',boxShadow:'0 4px 8px rgba(0, 0, 0, 0.1)'}}>

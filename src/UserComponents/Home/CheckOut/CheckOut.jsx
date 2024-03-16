@@ -206,7 +206,11 @@ const CheckOut = () => {
                     <div className={`col-md-6 ${styles.CheckOutImgDiv}`}>
                         <div className={`row flex-wrap`} style={{ display: 'flex', justifyContent: 'center' }}>
                             <div className={`col-md-12`} style={{ display: 'flex', justifyContent: 'center' }}>
-                                <img className={styles.CheckOutImg} src={thumbnail} alt="" />
+                                <img className={styles.CheckOutImg} src={
+                thumbnail && thumbnail.startsWith('/')
+                  ? `data:image/jpeg;base64,${thumbnail}`
+                  : thumbnail
+              } alt="" />
                             </div>
                             <div className={`col-md-12`} style={{ display: 'flex', justifyContent: 'center' }}>
                                 <div className={styles.ProductDetailsDiv}>

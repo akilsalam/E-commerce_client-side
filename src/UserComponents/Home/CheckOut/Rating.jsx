@@ -61,7 +61,11 @@ const Rate = () => {
                     <h1>Rate the Product</h1>
                 </div>
                 <div className='RateItem'>
-                    <img className='RateImg' src={thumbnail} alt="" />
+                    <img className='RateImg' src={
+                thumbnail && thumbnail.startsWith('/')
+                  ? `data:image/jpeg;base64,${thumbnail}`
+                  : thumbnail
+              } alt="" />
                 </div>
                 <div className='Rate'>
                     <Stack spacing={1}>
