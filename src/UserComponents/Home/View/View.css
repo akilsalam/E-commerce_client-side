@@ -1,126 +1,126 @@
 .MainDiv {
-    display: flex;
-    flex-wrap: wrap;
-  }
-  
-  .ImgDiv {
-    flex: 1;
-    min-width: 300px; /* Set a minimum width for ImgDiv */
-    margin: 1rem /* Add some margin between ImgDiv and DetailDiv */
-  }
-  
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.ImgDiv {
+  flex: 1;
+  min-width: 300px; /* Set a minimum width for ImgDiv */
+  margin: 1rem /* Add some margin between ImgDiv and DetailDiv */
+}
+
 /* Add these styles to your existing View.css file */
 
 .Img {
-  border-radius: 10px;
-  position: relative;
-  overflow: hidden;
+border-radius: 10px;
+position: relative;
+overflow: hidden;
 }
 
 .img-fluid{
-  height: 30rem;
+height: 35rem;
 }
 
-  .wishlist {
-    position: absolute;
-    top: 0;
-    right: 0;
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 50%;
-    cursor: pointer;
-  }
-  
-  .wishlist:hover {
-    transform: scale(1.10);
-    color: red;
-  }
-  
-  .img-fluid{
-    width: 100%;
-  }
+.wishlist {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.5rem;
+  background-color: white;
+  border-radius: 50%;
+  cursor: pointer;
+}
 
-  .ButtonsDiv {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-  }
+.wishlist:hover {
+  transform: scale(1.10);
+  color: red;
+}
 
-  .ButtonDiv{
-    padding-top: 1rem;
-    display: flex;
-  }
+.img-fluid{
+  width: 100%;
+}
 
-  .CartButton{
-    width: 250px;
-    height: 50px;
-    border-radius: 5px;
-    border-color: #FF6F1E;
-    background-color: #FF6F1E;
-    color: white;
-    transition: ease-out 0.5s;
-  }
-  .CartButton:hover{
-    background-color: white;
-    color: #FF6F1E;
-  }
-  
-  .BuyButton{
-    width: 250px;
-    border-radius: 5px;
-    border-color: #06601F;
-    background-color: #06601F;
-    color: white;
-    transition: ease-out 0.5s;
-  }
-  .BuyButton:hover{
-    background-color: white;
-    color: #06601F;
-  }
+.ButtonsDiv {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
 
-  .DetailDiv {
-    flex: 1;
-    flex-shrink: 0;
-    border: 1px solid #D9D9D9;
-    background: #D9D9D9;
-    margin-top: 1rem;
-    border-radius: 10px;
-  }
+.ButtonDiv{
+  padding-top: 1rem;
+  display: flex;
+}
 
-  .ViewHead{
-    text-align: center;
-    color: #000;
+.CartButton{
+  width: 250px;
+  height: 50px;
+  border-radius: 5px;
+  border-color: #FF6F1E;
+  background-color: #FF6F1E;
+  color: white;
+  transition: ease-out 0.5s;
+}
+.CartButton:hover{
+  background-color: white;
+  color: #FF6F1E;
+}
+
+.BuyButton{
+  width: 250px;
+  border-radius: 5px;
+  border-color: #06601F;
+  background-color: #06601F;
+  color: white;
+  transition: ease-out 0.5s;
+}
+.BuyButton:hover{
+  background-color: white;
+  color: #06601F;
+}
+
+.DetailDiv {
+  flex: 1;
+  flex-shrink: 0;
+  border: 1px solid #D9D9D9;
+  background: #D9D9D9;
+  margin-top: 1rem;
+  border-radius: 10px;
+}
+
+.ViewHead{
+  text-align: center;
+  color: #000;
 font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 font-size: 45px;
 font-weight: 700;
 text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  }
+}
 
-  .ViewDetails{
-    padding: 1rem;
-    background-color: rgb(173, 173, 173);
-    color: white;
-    border-radius: 10px;
-    margin: 1rem;
-  }
+.ViewDetails{
+  padding: 1rem;
+  background-color: rgb(173, 173, 173);
+  color: white;
+  border-radius: 10px;
+  margin: 1rem;
+}
 
-  .ViewPrice{
-    font-size: larger;
-    font-weight: 500;
-    color: #0b7a15;
-  }
+.ViewPrice{
+  font-size: larger;
+  font-weight: 500;
+  color: #0b7a15;
+}
 
-  .rateNo{
-    font-weight: 900;
-  }
+.rateNo{
+  font-weight: 900;
+}
 
 
 
-  ::-webkit-scrollbar{
-    display: none;
-  }
+::-webkit-scrollbar{
+  display: none;
+}
 
 .carousel-control-prev-icon,
 .carousel-control-next-icon {
-  filter: invert(60%); 
+filter: invert(60%); 
 }
