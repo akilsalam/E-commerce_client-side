@@ -362,13 +362,17 @@ const View = () => {
               className="img-fluid"
               // style={{ transformOrigin }}
             />
-            <div className="wishlist  m-1" >
+            <>
               {shouldRenderWishButton ? (
-                <FaRegHeart onClick={async () => await toWishList()} className='fs-4 m-1' />
+                <div className="wishlist m-1" onClick={async () => await toWishList()}>
+                <FaRegHeart  className='fs-4 m-1' />
+                </div>
                 ) : (
-                <IoMdHeart onClick={async () => await removeWish()} className='fs-4' style={{ color: 'red' }} />
-              )}
+                  <div className="wishlist  m-1" onClick={async () => await removeWish()}>
+                  <IoMdHeart  className='fs-4' style={{ color: 'red' }} />
             </div>
+                  )}
+                  </>
           </div>
           {showNotification && (
             <div
