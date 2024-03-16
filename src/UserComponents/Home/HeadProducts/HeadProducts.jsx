@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './HeadProducts.module.css'
 import { Col, Row,Navbar,Container } from 'react-bootstrap';
-import img1 from "../../../Images/grocery.webp"
+import img1 from "../../../Images/grocery.png"
 import img2 from '../../../Images/mobiles.png'
 import img3 from '../../../Images/Fashion.png'
 import img4 from '../../../Images/home.png'

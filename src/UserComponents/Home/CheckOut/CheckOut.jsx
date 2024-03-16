@@ -6,6 +6,7 @@ import 'react-phone-input-2/lib/style.css';
 import { Button } from 'react-bootstrap';
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import serverUrl from '../../../codes';
+import logo from '../../../Images/Logo.png'
 
 const CheckOut = () => {
     const [firstName,setFirstName] = useState('')
@@ -147,7 +148,7 @@ const CheckOut = () => {
             currency,
             "name": "ShipShop",
             "description": "Test Transaction",
-            "image": "ShipShop",
+            "image": `${logo}`,
             "order_id": order.id, 
             "handler": async function (response){
                 const body = {
