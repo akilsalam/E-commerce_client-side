@@ -45,24 +45,36 @@ const Dashboard = () => {
             try {
                 const response = await axios.get(`${serverUrl}/admin/orders`);
     
-                // Check if response.data[0].products is defined and is an array
-                if (response.data[0] && Array.isArray(response.data[0].products)) {
-                    // Extract product statuses
-                    const productStatuses = response.data[0].products.map(product => product.status);
+                // Check if response.data is an array
+                if (Array.isArray(response.data)) {
+                    let deliveredCount = 0;
+                    let pendingCount = 0;
+                    let rejectedCount = 0;
     
-                    // Count the number of products with status "Delivered"
-                    const deliveredCount = productStatuses.filter(status => status === "Delivered").length;
-                    const pendingCount = productStatuses.filter(status => status === "Pending").length;
-                    const rejectedCount = productStatuses.filter(status => status === "Rejected").length;
+                    // Iterate over each data element in the response
+                    response.data.forEach(order => {
+                        // Check if products array is defined and is an array
+                        if (Array.isArray(order.products)) {
+                            // Extract product statuses
+                            const productStatuses = order.products.map(product => product.status);
     
-                    // Set the delivered count to the state
-                    setRejectedCount(rejectedCount)
-                    setPendingCount(pendingCount)
+                            // Accumulate counts
+                            deliveredCount += productStatuses.filter(status => status === "Delivered").length;
+                            pendingCount += productStatuses.filter(status => status === "Pending").length;
+                            rejectedCount += productStatuses.filter(status => status === "Rejected").length;
+                        } else {
+                            console.error('Invalid data format:', order);
+                        }
+                    });
+    
+                    // Set the counts to the state
                     setDeliveredCount(deliveredCount);
-                    console.log("Number of products delivered:", deliveredCount);
+                    setPendingCount(pendingCount);
+                    setRejectedCount(rejectedCount);
     
-                    // Move the console.log statement inside the useEffect block
-                    console.log("delivered" + deliveredCount);
+                    console.log("Number of products delivered:", deliveredCount);
+                    console.log("Number of products pending:", pendingCount);
+                    console.log("Number of products rejected:", rejectedCount);
                 } else {
                     console.error('Invalid data format:', response.data);
                 }

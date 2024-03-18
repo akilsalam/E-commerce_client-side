@@ -33,6 +33,10 @@
     font-weight: bold;
 }
 
+.InputDiv{
+    width: 100%;
+}
+
 .Input {
     width: 100%;
     padding: 5px;
@@ -77,6 +81,9 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
+    .AdminLoginDiv {
+        width: 100%;
+    }
     .LoginPage {
         flex-direction: column;
         align-items: stretch;
