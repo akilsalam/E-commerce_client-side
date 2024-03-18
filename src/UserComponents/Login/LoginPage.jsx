@@ -262,7 +262,7 @@ const Login = () => {
                     >
                       <div className='InputDiv'>
                         <PhoneInput
-                          defaultCountry="in"                          ref={phoneRef}
+                          country="in"                          ref={phoneRef}
                           value={phone}
                           id='phone'
                           inputProps={{
