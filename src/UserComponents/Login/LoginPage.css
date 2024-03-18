@@ -20,7 +20,6 @@
     margin-left: 1rem;
 }
 
-
 .BackBtn p {
     margin: 0;
     margin-left: 10px;
@@ -55,8 +54,7 @@
     font-weight: bold;
 }
 
-
-.Input{
+.Input {
     width: 100%;
     padding: 5px;
     border-radius: 5px;
@@ -100,9 +98,6 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
-    .InputDiv{
-        width: 100%;
-    }
     .LoginPage {
         flex-direction: column;
         align-items: stretch;
