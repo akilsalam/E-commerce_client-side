@@ -20,9 +20,6 @@
     margin-left: 1rem;
 }
 
-.react-tel-input .form-control {
-    width: 100%;
-}
 
 .BackBtn p {
     margin: 0;
@@ -103,6 +100,9 @@
 
 /* Responsive styles */
 @media (max-width: 768px) {
+    .InputDiv{
+        width: 100%;
+    }
     .LoginPage {
         flex-direction: column;
         align-items: stretch;
