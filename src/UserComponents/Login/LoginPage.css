@@ -96,11 +96,11 @@
     background-color: #3498db;
     
 }
-
 .InputDiv{
     display: flex;
     justify-content: center;
 }
+
 /* Responsive styles */
 @media (max-width: 768px) {
     .LoginPage {
